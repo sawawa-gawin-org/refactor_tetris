@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
-#include <ncurses.h>
-
-#define R 20
-#define C 15
-#define T 1
-#define F 0
+#include "tetris.h"
 
 char Table[R][C] = {0};
 int final = 0;
@@ -15,13 +6,9 @@ char GameOn = T;
 suseconds_t timer = 400000;
 int decrease = 1000;
 
-typedef struct {
-    char **array;
-    int width, row, col;
-} Struct;
-Struct current;
+t_shape current;
 
-const Struct StructsArray[7]= {
+const t_shape StructsArray[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3},
 	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3},
 	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3},
@@ -31,8 +18,8 @@ const Struct StructsArray[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4}
 };
 
-Struct FunctionCS(Struct shape){
-	Struct new_shape = shape;
+t_shape FunctionCS(t_shape shape){
+	t_shape new_shape = shape;
 	char **copyshape = shape.array;
 	new_shape.array = (char**)malloc(new_shape.width*sizeof(char*));
     int i, j;
@@ -45,7 +32,7 @@ Struct FunctionCS(Struct shape){
     return new_shape;
 }
 
-void FunctionDS(Struct shape){
+void FunctionDS(t_shape shape){
     int i;
     for(i = 0; i < shape.width; i++){
 		free(shape.array[i]);
@@ -53,7 +40,7 @@ void FunctionDS(Struct shape){
     free(shape.array);
 }
 
-int FunctionCP(Struct shape){
+int FunctionCP(t_shape shape){
 	char **array = shape.array;
 	int i, j;
 	for(i = 0; i < shape.width;i++) {
@@ -70,8 +57,8 @@ int FunctionCP(Struct shape){
 	return T;
 }
 
-void FunctionRS(Struct shape){
-	Struct temp = FunctionCS(shape);
+void FunctionRS(t_shape shape){
+	t_shape temp = FunctionCS(shape);
 	int i, j, k, width;
 	width = shape.width;
 	for(i = 0; i < width ; i++){
@@ -121,7 +108,7 @@ int main() {
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
-	Struct new_shape = FunctionCS(StructsArray[rand()%7]);
+	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
     new_shape.col = rand()%(C-new_shape.width+1);
     new_shape.row = 0;
     FunctionDS(current);
@@ -132,7 +119,7 @@ int main() {
     FunctionPT();
 	while(GameOn){
 		if ((c = getch()) != ERR) {
-			Struct temp = FunctionCS(current);
+			t_shape temp = FunctionCS(current);
 			switch(c){
 				case 's':
 					temp.row++;  //move down
@@ -164,7 +151,7 @@ int main() {
 							}
 						}
 						final += 100*count;
-						Struct new_shape = FunctionCS(StructsArray[rand()%7]);
+						t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
 						new_shape.col = rand()%(C-new_shape.width+1);
 						new_shape.row = 0;
 						FunctionDS(current);
@@ -195,7 +182,7 @@ int main() {
 		}
 		gettimeofday(&now, NULL);
 		if (hasToUpdate()) {
-			Struct temp = FunctionCS(current);
+			t_shape temp = FunctionCS(current);
 			switch('s'){
 				case 's':
 					temp.row++;
@@ -226,7 +213,7 @@ int main() {
 								timer-=decrease--;
 							}
 						}
-						Struct new_shape = FunctionCS(StructsArray[rand()%7]);
+						t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
 						new_shape.col = rand()%(C-new_shape.width+1);
 						new_shape.row = 0;
 						FunctionDS(current);
