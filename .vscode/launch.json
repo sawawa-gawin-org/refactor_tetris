@@ -2,7 +2,21 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Mandatory",
+			"name": "Mandatory-linux",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${cwd}/tetris",
+			"args": [
+			],
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": true,
+			"MIMode": "gdb",
+			"preLaunchTask": "tetris-mandatory",
+		},
+		{
+			"name": "Mandatory-macOS",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${cwd}/tetris",
