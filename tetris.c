@@ -101,16 +101,26 @@ void set_timeout(int time) {
 	timeout(1);
 }
 
-int main() {
-    srand(time(0));
+// FunctionCS: 落下してくるブロックの配列のオブジェクトを返す。
+// FunctionDS: 配列のオブジェクトを解放する。
+// FunctionRS: 配列のオブジェクトを回転？
+// FunctionPT: 背景オブジェクト、タイトルとかスコアの表示
+// FunctionCP: 上まで積み上がってしまったかどうか
+/* 
+# define T 1 : Trueのこと
+# define F 0 : Falseのこと
+*/
+int main()
+{
+    int	c;
     final = 0;
-    int c;
-    initscr();
-	gettimeofday(&before_now, NULL);
-	set_timeout(1);
-	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-    new_shape.col = rand()%(C-new_shape.width+1);
-    new_shape.row = 0;
+    srand(time(0));  // 乱数のseed設定
+    initscr(); // スクリーンを初期化する
+	gettimeofday(&before_now, NULL); //時刻の取得(datetime.now()と同じ)
+	set_timeout(1);  // 意図不明
+	t_shape new_shape = FunctionCS(StructsArray[rand()%7]); // 7パターンから選択
+    new_shape.col = rand() % (C-new_shape.width+1); // 落ちる場所: C:15(グリッド横)
+    new_shape.row = 0; // 落ちる場所：[0, R](R:20 グリッド縦)
     FunctionDS(current);
 	current = new_shape;
 	if(!FunctionCP(current)){
@@ -172,9 +182,9 @@ int main() {
 						current.col--;
 					break;
 				case 'w':
-					FunctionRS(temp);
+					FunctionRS(temp); // 重複している？
 					if(FunctionCP(temp))
-						FunctionRS(current);
+						FunctionRS(current); // 重複している？
 					break;
 			}
 			FunctionDS(temp);
