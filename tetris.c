@@ -114,6 +114,9 @@ void set_timeout(int time) {
 // t_shapeは{(3,3),(4,1),(2,2)}のグリッド。
 // ex: {(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
 // 最後の要素はブロックの高さサイズ(Iミノは4, Oミノは2)
+
+void FunctionFF(void); //関数名は他の関数の命名規則に合わせるため一時的なもの
+
 int main()
 {
 	int	score;
@@ -152,43 +155,9 @@ int main()
 					if(FunctionCP(temp))
 						current.row++;
 					else {
-
-/* 自由落下処理　ここから */
-	int i, j;
-	for(i = 0; i < current.width ;i++){
-		for(j = 0; j < current.width ; j++){
-			if(current.array[i][j])
-				Table[current.row+i][current.col+j] = current.array[i][j];
-		}
-	}
-	int n, m, sum, count=0;
-	for(n=0;n<R;n++){
-		sum = 0;
-		for(m=0;m< C;m++) {
-			sum+=Table[n][m];
-		}
-		if(sum==C){
-			count++;
-			int l, k;
-			for(k = n;k >=1;k--)
-				for(l=0;l<C;l++)
-					Table[k][l]=Table[k-1][l];
-			for(l=0;l<C;l++)
-				Table[k][l]=0;
-			timer-=decrease--;
-		}
-	}
-	final += 100*count;
-	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-	new_shape.col = rand()%(C-new_shape.width+1);
-	new_shape.row = 0;
-	FunctionDS(current);
-	current = new_shape;
-	if(!FunctionCP(current)){
-		GameOn = F;
-	}
-/* ここまで */
-
+					/* 自由落下処理　ここから */
+						FunctionFF();
+					/* ここまで*/
 					}
 					break;
 				case 'd':
@@ -217,43 +186,9 @@ int main()
 			if(FunctionCP(temp))
 				current.row++;
 			else {
-
-/* 自由落下処理　ここから */
-	int i, j;
-	for(i = 0; i < current.width ;i++){
-		for(j = 0; j < current.width ; j++){
-			if(current.array[i][j])
-				Table[current.row+i][current.col+j] = current.array[i][j];
-		}
-	}
-	int n, m, sum, count=0;
-	for(n=0;n<R;n++){
-		sum = 0;
-		for(m=0;m< C;m++) {
-			sum+=Table[n][m];
-		}
-		if(sum==C){
-			count++;
-			int l, k;
-			for(k = n;k >=1;k--)
-				for(l=0;l<C;l++)
-					Table[k][l]=Table[k-1][l];
-			for(l=0;l<C;l++)
-				Table[k][l]=0;
-			timer-=decrease--;
-		}
-	}
-	final += 100*count;
-	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-	new_shape.col = rand()%(C-new_shape.width+1);
-	new_shape.row = 0;
-	FunctionDS(current);
-	current = new_shape;
-	if(!FunctionCP(current)){
-		GameOn = F;
-	}
-/* ここまで(上記の処理とまったく一緒) */
-
+			/* 自由落下処理　ここから */
+				FunctionFF();
+			/* ここまで(上記の処理とまったく一緒) */
 			}
 			FunctionDS(temp);
 			FunctionPT();
@@ -301,6 +236,7 @@ void FunctionFF(void)
 			timer-=decrease--;
 		}
 	}
+	final += 100*count;
 	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
 	new_shape.col = rand()%(C-new_shape.width+1);
 	new_shape.row = 0;
