@@ -38,15 +38,15 @@ const t_shape StructsArray[7]= {
 
 void FunctionFF(void); //関数名は他の関数の命名規則に合わせるため一時的なもの
 
+static void	display_array(char array[R][C], int (*callback)(const char *fmt, ...));
+
 int main()
 {
-	int	score;
-
-	score = 0;
-    final = score;
+    final = 0;
     // srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
 	srand(0); // as Debug
     initscr(); // スクリーンを初期化する
+	/* TUIの開始 */
 	timeout(1);
 	/* 初期ミノ設定 */
     FunctionDS(current); // グローバル変数なので、前回のミノの明示的解放
@@ -119,16 +119,24 @@ int main()
 	FunctionDS(current);
 	endwin();
 	/* 以降 標準出力での出力 */
-	int i, j;
-	for(i = 0; i < R ;i++){ // 画面が更新される都合上のループ外での再描画
-		for(j = 0; j < C ; j++){
-			printf("%c ", Table[i][j] ? '#': '.');
-		}
-		printf("\n");
-	}
+	int	score;
+
+	score = final;
+	display_array(Table, printf);
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", final);
+	printf("\nScore: %d\n", score);
     return 0;
+}
+
+static void	display_array(char array[R][C], int (*callback)(const char *fmt, ...))
+{
+	int i, j;
+	for(i = 0; i < R ;i++){
+		for(j = 0; j < C ; j++){
+			callback("%c ", array[i][j] ? '#': '.');
+		}
+		callback("\n");
+	}
 }
 
 void FunctionFF(void)
