@@ -3,7 +3,7 @@ NAME = tetris
 CC = gcc
 CFLAGS = -lncurses
 
-SRCS = tetris.c
+SRCS = tetris.c func_tetris.c
 
 OBJ_DIR = ./obj/
 
