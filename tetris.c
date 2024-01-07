@@ -202,63 +202,42 @@ int main()
 		gettimeofday(&now, NULL); // 時間経過判定のための時刻取得
 		if (hasToUpdate()) { // 時間経過による落下(前回のループ終了からここまでの経過時間が>1sならば)
 			t_shape temp = FunctionCS(current);
-			switch('s'){ // switch('s')は自動成功
-				case 's':
-					temp.row++;
-					if(FunctionCP(temp))
-						current.row++;
-					else {
-						int i, j;
-						for(i = 0; i < current.width ;i++){
-							for(j = 0; j < current.width ; j++){
-								if(current.array[i][j])
-									Table[current.row+i][current.col+j] = current.array[i][j];
-							}
-						}
-						int n, m, sum, count=0;
-						for(n=0;n<R;n++){
-							sum = 0;
-							for(m=0;m< C;m++) {
-								sum+=Table[n][m];
-							}
-							if(sum==C){
-								count++;
-								int l, k;
-								for(k = n;k >=1;k--)
-									for(l=0;l<C;l++)
-										Table[k][l]=Table[k-1][l];
-								for(l=0;l<C;l++)
-									Table[k][l]=0;
-								timer-=decrease--;
-							}
-						}
-						t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-						new_shape.col = rand()%(C-new_shape.width+1);
-						new_shape.row = 0;
-						FunctionDS(current);
-						current = new_shape;
-						if(!FunctionCP(current)){
-							GameOn = F;
-						}
+			temp.row++;
+			if(FunctionCP(temp))
+				current.row++;
+			else {
+				int i, j;
+				for(i = 0; i < current.width ;i++){
+					for(j = 0; j < current.width ; j++){
+						if(current.array[i][j])
+							Table[current.row+i][current.col+j] = current.array[i][j];
 					}
-					break;
-				/* ここから */
-				case 'd':
-					temp.col++;
-					if(FunctionCP(temp))
-						current.col++;
-					break;
-				case 'a':
-					temp.col--;
-					if(FunctionCP(temp))
-						current.col--;
-					break;
-				case 'w':
-					FunctionRS(temp);
-					if(FunctionCP(temp))
-						FunctionRS(current);
-					break;
-				/* ここまで不要 */
+				}
+				int n, m, sum, count=0;
+				for(n=0;n<R;n++){
+					sum = 0;
+					for(m=0;m< C;m++) {
+						sum+=Table[n][m];
+					}
+					if(sum==C){
+						count++;
+						int l, k;
+						for(k = n;k >=1;k--)
+							for(l=0;l<C;l++)
+								Table[k][l]=Table[k-1][l];
+						for(l=0;l<C;l++)
+							Table[k][l]=0;
+						timer-=decrease--;
+					}
+				}
+				t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
+				new_shape.col = rand()%(C-new_shape.width+1);
+				new_shape.row = 0;
+				FunctionDS(current);
+				current = new_shape;
+				if(!FunctionCP(current)){
+					GameOn = F;
+				}
 			}
 			FunctionDS(temp);
 			FunctionPT();
