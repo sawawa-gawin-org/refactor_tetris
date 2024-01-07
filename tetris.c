@@ -111,31 +111,38 @@ void set_timeout(int time) {
 # define F 0 : Falseのこと
 というか、このdefineは<ncurses.h>内部にTRUE/FALSEで存在する。
 */
-// t_shapeは(3,3)のグリッド。{(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
+// t_shapeは{(3,3),(4,1),(2,2)}のグリッド。
+// ex: {(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
 // 最後の要素はブロックの高さサイズ(Iミノは4, Oミノは2)
 int main()
 {
-    int	c;
-    final = 0; // スコアのことだが、グローバル変数宣言時に初期化は既にされている。
-    srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
+	int	score;
+
+	score = 0;
+    final = score;
+    // srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
+	srand(0); // as Debug
     initscr(); // スクリーンを初期化する
-	gettimeofday(&before_now, NULL); //時刻の取得(datetime.now()と同じ)
 	set_timeout(1);  // 現状意図不明
 	/* 初期ミノ設定 */
+    FunctionDS(current); // グローバル変数なので、前回のミノの明示的解放
 	t_shape new_shape = FunctionCS(StructsArray[rand()%7]); // ミノ全7パターンから選択
     new_shape.col = rand() % (C - new_shape.width+1); // 落ちる場所: C:15(グリッド横)
     new_shape.row = 0; // 落ちる場所：[0, R] R:20(グリッド縦)
-    FunctionDS(current); // 解放する意義？
 	current = new_shape;
-	/* 自動成功なのでおそらく不要 */
+	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っているが、
+	FunctionPT();が呼び出された際に自動失敗する。
+	 */
 	if(!FunctionCP(current)){
 		GameOn = F;
 	}
+	gettimeofday(&before_now, NULL); //時刻の取得(datetime.now()と同じ) 画面更新間隔の計算で使用
     FunctionPT();
 	/* 2 パターンの処理がゲーム終了まで続く半無限ループ 
 		// 1. キーボードのwasdの有無の確認とそれに応じた処理
 		// 2. 猶予内までに入力が無ければ自由落下
 	*/
+    int	c;
 	while(GameOn){
 		if ((c = getch()) != ERR) {
 			t_shape temp = FunctionCS(current);
@@ -145,39 +152,43 @@ int main()
 					if(FunctionCP(temp))
 						current.row++;
 					else {
-						int i, j;
-						for(i = 0; i < current.width ;i++){
-							for(j = 0; j < current.width ; j++){
-								if(current.array[i][j])
-									Table[current.row+i][current.col+j] = current.array[i][j];
-							}
-						}
-						int n, m, sum, count=0;
-						for(n=0;n<R;n++){
-							sum = 0;
-							for(m=0;m< C;m++) {
-								sum+=Table[n][m];
-							}
-							if(sum==C){
-								count++;
-								int l, k;
-								for(k = n;k >=1;k--)
-									for(l=0;l<C;l++)
-										Table[k][l]=Table[k-1][l];
-								for(l=0;l<C;l++)
-									Table[k][l]=0;
-								timer-=decrease--;
-							}
-						}
-						final += 100*count;
-						t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-						new_shape.col = rand()%(C-new_shape.width+1);
-						new_shape.row = 0;
-						FunctionDS(current);
-						current = new_shape;
-						if(!FunctionCP(current)){
-							GameOn = F;
-						}
+
+/* 自由落下処理　ここから */
+	int i, j;
+	for(i = 0; i < current.width ;i++){
+		for(j = 0; j < current.width ; j++){
+			if(current.array[i][j])
+				Table[current.row+i][current.col+j] = current.array[i][j];
+		}
+	}
+	int n, m, sum, count=0;
+	for(n=0;n<R;n++){
+		sum = 0;
+		for(m=0;m< C;m++) {
+			sum+=Table[n][m];
+		}
+		if(sum==C){
+			count++;
+			int l, k;
+			for(k = n;k >=1;k--)
+				for(l=0;l<C;l++)
+					Table[k][l]=Table[k-1][l];
+			for(l=0;l<C;l++)
+				Table[k][l]=0;
+			timer-=decrease--;
+		}
+	}
+	final += 100*count;
+	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
+	new_shape.col = rand()%(C-new_shape.width+1);
+	new_shape.row = 0;
+	FunctionDS(current);
+	current = new_shape;
+	if(!FunctionCP(current)){
+		GameOn = F;
+	}
+/* ここまで */
+
 					}
 					break;
 				case 'd':
@@ -193,7 +204,7 @@ int main()
 				case 'w':
 					FunctionRS(temp); // 重複している？
 					if(FunctionCP(temp))
-						FunctionRS(current); // 重複している？
+						FunctionRS(current);
 					break;
 			}
 			FunctionDS(temp);
@@ -206,39 +217,43 @@ int main()
 			if(FunctionCP(temp))
 				current.row++;
 			else {
-				int i, j;
-				for(i = 0; i < current.width ;i++){
-					for(j = 0; j < current.width ; j++){
-						if(current.array[i][j])
-							Table[current.row+i][current.col+j] = current.array[i][j];
-					}
-				}
-				int n, m, sum, count=0;
-				for(n=0;n<R;n++){
-					sum = 0;
-					for(m=0;m< C;m++) {
-						sum+=Table[n][m];
-					}
-					if(sum==C){
-						count++;
-						int l, k;
-						for(k = n;k >=1;k--)
-							for(l=0;l<C;l++)
-								Table[k][l]=Table[k-1][l];
-						for(l=0;l<C;l++)
-							Table[k][l]=0;
-						timer-=decrease--;
-					}
-				}
+
+/* 自由落下処理　ここから */
+	int i, j;
+	for(i = 0; i < current.width ;i++){
+		for(j = 0; j < current.width ; j++){
+			if(current.array[i][j])
+				Table[current.row+i][current.col+j] = current.array[i][j];
+		}
+	}
+	int n, m, sum, count=0;
+	for(n=0;n<R;n++){
+		sum = 0;
+		for(m=0;m< C;m++) {
+			sum+=Table[n][m];
+		}
+		if(sum==C){
+			count++;
+			int l, k;
+			for(k = n;k >=1;k--)
+				for(l=0;l<C;l++)
+					Table[k][l]=Table[k-1][l];
+			for(l=0;l<C;l++)
+				Table[k][l]=0;
+			timer-=decrease--;
+		}
+	}
 	final += 100*count;
-				t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
-				new_shape.col = rand()%(C-new_shape.width+1);
-				new_shape.row = 0;
-				FunctionDS(current);
-				current = new_shape;
-				if(!FunctionCP(current)){
-					GameOn = F;
-				}
+	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
+	new_shape.col = rand()%(C-new_shape.width+1);
+	new_shape.row = 0;
+	FunctionDS(current);
+	current = new_shape;
+	if(!FunctionCP(current)){
+		GameOn = F;
+	}
+/* ここまで(上記の処理とまったく一緒) */
+
 			}
 			FunctionDS(temp);
 			FunctionPT();
@@ -247,6 +262,7 @@ int main()
 	}
 	FunctionDS(current);
 	endwin();
+	/* 以降 標準出力での出力 */
 	int i, j;
 	for(i = 0; i < R ;i++){ // 画面が更新される都合上のループ外での再描画
 		for(j = 0; j < C ; j++){
@@ -257,4 +273,40 @@ int main()
 	printf("\nGame over!\n");
 	printf("\nScore: %d\n", final);
     return 0;
+}
+
+void FunctionFF(void)
+{
+	int i, j;
+	for(i = 0; i < current.width ;i++){
+		for(j = 0; j < current.width ; j++){
+			if(current.array[i][j])
+				Table[current.row+i][current.col+j] = current.array[i][j];
+		}
+	}
+	int n, m, sum, count=0;
+	for(n=0;n<R;n++){
+		sum = 0;
+		for(m=0;m< C;m++) {
+			sum+=Table[n][m];
+		}
+		if(sum==C){
+			count++;
+			int l, k;
+			for(k = n;k >=1;k--)
+				for(l=0;l<C;l++)
+					Table[k][l]=Table[k-1][l];
+			for(l=0;l<C;l++)
+				Table[k][l]=0;
+			timer-=decrease--;
+		}
+	}
+	t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
+	new_shape.col = rand()%(C-new_shape.width+1);
+	new_shape.row = 0;
+	FunctionDS(current);
+	current = new_shape;
+	if(!FunctionCP(current)){
+		GameOn = F;
+	}
 }
