@@ -126,7 +126,7 @@ int main()
     // srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
 	srand(0); // as Debug
     initscr(); // スクリーンを初期化する
-	set_timeout(1);  // 現状意図不明
+	set_timeout(1);
 	/* 初期ミノ設定 */
     FunctionDS(current); // グローバル変数なので、前回のミノの明示的解放
 	t_shape new_shape = FunctionCS(StructsArray[rand()%7]); // ミノ全7パターンから選択
@@ -155,7 +155,7 @@ int main()
 					if(FunctionCP(temp))
 						current.row++;
 					else {
-					/* 自由落下処理　ここから */
+					/* 自由落下処理*/
 						FunctionFF();
 					/* ここまで*/
 					}
@@ -186,9 +186,9 @@ int main()
 			if(FunctionCP(temp))
 				current.row++;
 			else {
-			/* 自由落下処理　ここから */
+			/* 自由落下処理*/
 				FunctionFF();
-			/* ここまで(上記の処理とまったく一緒) */
+			/* ここまで */
 			}
 			FunctionDS(temp);
 			FunctionPT();
