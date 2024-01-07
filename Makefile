@@ -3,7 +3,9 @@ NAME = tetris
 CC = gcc
 CFLAGS = -lncurses
 
-SRCS = tetris.c func_tetris.c
+SRCS = tetris.c \
+		/srcs/create_new_block.c /srcs/destroy_old_block.c /srcs/detect_reaching_top.c \
+		/srcs/display_board.c /srcs/fall_down_auto.c /srcs/srcs/has_to_update.c /srcs/rotate_block.c
 
 OBJ_DIR = ./obj/
 

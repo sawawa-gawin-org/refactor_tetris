@@ -4,6 +4,7 @@
 # define C 15
 # define T 1
 # define F 0
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
@@ -24,13 +25,16 @@ extern int final;
 extern suseconds_t timer;
 extern struct timeval before_now;
 extern struct timeval now;
+extern char GameOn;
+extern int decrease;
+extern const t_shape StructsArray[7];
 
-
-t_shape	FunctionCS(t_shape shape);
-void	FunctionDS(t_shape shape);
-int		FunctionCP(t_shape shape);
-void	FunctionRS(t_shape shape);
-void	FunctionPT(void);
+t_shape	create_new_block(t_shape shape);
+void	destroy_old_block(t_shape shape);
+int		detect_reaching_top(t_shape shape);
+void	rotate_block(t_shape shape);
+void	display_board(void);
+void 	fall_down_block(void);
 int		hasToUpdate(void);
 
 #endif
