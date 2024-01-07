@@ -3,10 +3,11 @@
 //FunctionPT
 void	display_board(void)
 {
-	char	Buffer[R][C] = {0};
+	char	Buffer[R][C];
 	int		i;
 	int		j;
 
+	memcpy(Buffer, Table, R * C * sizeof(char));
 	i = 0;
 	while (i < current.width)
 	{
@@ -14,7 +15,7 @@ void	display_board(void)
 		while (j < current.width)
 		{
 			if(current.array[i][j])
-				Buffer[current.row+i][current.col+j] = current.array[i][j];
+				Buffer[current.row+i][current.col+j] += current.array[i][j];
 			j++;
 		}
 		i++;
@@ -27,17 +28,6 @@ void	display_board(void)
 		i++;
 	}
 	printw("42 Tetris\n");
-	i = 0;
-	while (i < R)
-	{
-		j = 0;
-		while (j < C)
-		{
-			printw("%c ", (Table[i][j] + Buffer[i][j])? '#': '.');
-			j++;
-		}
-		printw("\n");
-		i++;
-	}
+	display_array(Buffer, printw);
 	printw("\nScore: %d\n", final);
 }

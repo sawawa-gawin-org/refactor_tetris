@@ -36,7 +36,6 @@ const t_shape StructsArray[7]= {
 // ex: {(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
 // 最後の要素はブロックの高さサイズ(Iミノは4, Oミノは2)
 
-static void	display_array(char array[R][C], int (*callback)(const char *fmt, ...));
 static void	init_globals(void);
 
 // 不要かもしれない
@@ -133,15 +132,4 @@ int	main(void)
 	printf("\nGame over!\n");
 	printf("\nScore: %d\n", score);
     return 0;
-}
-
-static void	display_array(char array[R][C], int (*callback)(const char *fmt, ...))
-{
-	int i, j;
-	for(i = 0; i < R ;i++){
-		for(j = 0; j < C ; j++){
-			callback("%c ", array[i][j] ? '#': '.');
-		}
-		callback("\n");
-	}
 }
