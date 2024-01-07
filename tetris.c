@@ -113,7 +113,7 @@ int main()
 		}
 		gettimeofday(&now, NULL); // 時間経過判定のための時刻取得
 		if (hasToUpdate()) { // 時間経過による落下(前回のループ終了からここまでの経過時間が>1sならば)
-			t_shape tmp_shape = FunctionCS(current);
+			tmp_shape = FunctionCS(current);
 			tmp_shape.row++;
 			if(FunctionCP(tmp_shape))
 				current.row++;
