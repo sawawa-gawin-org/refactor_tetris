@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //FunctionCS 
 t_shape	create_new_block(t_shape shape)

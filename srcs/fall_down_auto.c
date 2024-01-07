@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 void fall_down_block(void)
 {

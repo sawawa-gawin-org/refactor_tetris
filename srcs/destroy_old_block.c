@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //FunctionDS
 void	destroy_old_block(t_shape shape)

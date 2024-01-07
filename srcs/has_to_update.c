@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //hasToUpdate
 int	hasToUpdate(void)

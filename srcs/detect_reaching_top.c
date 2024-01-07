@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //FunctionCP
 int	detect_reaching_top(t_shape shape)

@@ -3,11 +3,12 @@ NAME = tetris
 CC = gcc
 CFLAGS = -lncurses
 
-SRCS = tetris.c \
-		/srcs/create_new_block.c /srcs/destroy_old_block.c /srcs/detect_reaching_top.c \
-		/srcs/display_board.c /srcs/fall_down_auto.c /srcs/srcs/has_to_update.c /srcs/rotate_block.c
+SRC_DIR = ./srcs/
 
 OBJ_DIR = ./obj/
+
+SRCS = tetris.c create_new_block.c destroy_old_block.c detect_reaching_top.c \
+		display_board.c fall_down_auto.c has_to_update.c rotate_block.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 
@@ -16,7 +17,7 @@ all: $(OBJ_DIR) $(NAME)
 $(OBJ_DIR):
 	mkdir -p obj
 
-$(OBJ_DIR)%.o: %.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS)

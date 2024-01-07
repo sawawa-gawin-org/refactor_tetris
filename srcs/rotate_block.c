@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //FunctionRS
 void	rotate_block(t_shape shape)

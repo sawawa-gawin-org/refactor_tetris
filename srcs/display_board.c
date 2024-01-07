@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "../tetris.h"
 
 //FunctionPT
 void	display_board(void)
