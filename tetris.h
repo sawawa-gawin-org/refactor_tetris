@@ -18,6 +18,14 @@ typedef struct s_shape
 	int		col;
 }			t_shape;
 
+enum	e_interface
+{
+	ROTATE_KEY = 'w',
+	MV_LEFT_KEY = 'a',
+	MV_DOWN_KEY = 's',
+	MV_RIGHT_KEY = 'd',
+};
+
 extern t_shape current;
 extern char Table[R][C];
 extern int final;

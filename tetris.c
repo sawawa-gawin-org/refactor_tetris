@@ -39,23 +39,35 @@ const t_shape StructsArray[7]= {
 void FunctionFF(void); //関数名は他の関数の命名規則に合わせるため一時的なもの
 
 static void	display_array(char array[R][C], int (*callback)(const char *fmt, ...));
+static void	init_globals(void);
+
+// 不要かもしれない
+static void	init_globals(void)
+{
+	final = 0;
+	/* 初期ミノ設定 */
+    FunctionDS(current); // グローバル変数なので、前回のミノの明示的解放?
+}
 
 int main()
 {
-    final = 0;
+	t_shape	new_shape, tmp_shape;
+
+	init_globals();
     // srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
 	srand(0); // as Debug
     initscr(); // スクリーンを初期化する
 	/* TUIの開始 */
 	timeout(1);
-	/* 初期ミノ設定 */
-    FunctionDS(current); // グローバル変数なので、前回のミノの明示的解放
-	t_shape new_shape = FunctionCS(StructsArray[rand()%7]); // ミノ全7パターンから選択
+
+	/* 以下値の受け渡し方法に改善の余地がある気がする */
+	new_shape = FunctionCS(StructsArray[rand()%7]); // ミノ全7パターンから選択
     new_shape.col = rand() % (C - new_shape.width+1); // 落ちる場所: C:15(グリッド横)
     new_shape.row = 0; // 落ちる場所：[0, R] R:20(グリッド縦)
 	current = new_shape;
-	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っているが、
-	FunctionPT();が呼び出された際に自動失敗する。
+
+	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、
+	現状のバグでFunctionPT();が呼び出された際に自動失敗
 	 */
 	if(!FunctionCP(current)){
 		GameOn = F;
@@ -69,49 +81,46 @@ int main()
     int	c;
 	while(GameOn){
 		if ((c = getch()) != ERR) {
-			t_shape temp = FunctionCS(current);
-			switch(c){
-				case 's':
-					temp.row++; //move down
-					if(FunctionCP(temp))
-						current.row++;
-					else {
-					/* 自由落下処理*/
-						FunctionFF();
-					/* ここまで*/
-					}
-					break;
-				case 'd':
-					temp.col++;
-					if(FunctionCP(temp))
-						current.col++;
-					break;
-				case 'a':
-					temp.col--;
-					if(FunctionCP(temp))
-						current.col--;
-					break;
-				case 'w':
-					FunctionRS(temp); // 重複している？
-					if(FunctionCP(temp))
-						FunctionRS(current);
-					break;
+			tmp_shape = FunctionCS(current);
+			if (c == MV_DOWN_KEY)
+			{
+				tmp_shape.row++;
+				if (FunctionCP(tmp_shape))
+					current.row++;
+				else
+					FunctionFF();
 			}
-			FunctionDS(temp);
+			else if (c == MV_RIGHT_KEY)
+			{
+				tmp_shape.col++;
+				if (FunctionCP(tmp_shape))
+					current.col++;
+			}
+			else if (c == MV_LEFT_KEY)
+			{
+				tmp_shape.col--;
+				if(FunctionCP(tmp_shape))
+					current.col--;
+			}
+			else if (c == ROTATE_KEY)
+			{
+				FunctionRS(tmp_shape);
+				if (FunctionCP(tmp_shape))
+					FunctionRS(current);
+			}
+			FunctionDS(tmp_shape);
 			FunctionPT();
 		}
 		gettimeofday(&now, NULL); // 時間経過判定のための時刻取得
 		if (hasToUpdate()) { // 時間経過による落下(前回のループ終了からここまでの経過時間が>1sならば)
-			t_shape temp = FunctionCS(current);
-			temp.row++;
-			if(FunctionCP(temp))
+			t_shape tmp_shape = FunctionCS(current);
+			tmp_shape.row++;
+			if(FunctionCP(tmp_shape))
 				current.row++;
 			else {
-			/* 自由落下処理*/
 				FunctionFF();
-			/* ここまで */
 			}
-			FunctionDS(temp);
+			FunctionDS(tmp_shape);
 			FunctionPT();
 			gettimeofday(&before_now, NULL);// 時間経過判定のための時刻取得
 		}
