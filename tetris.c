@@ -230,6 +230,7 @@ int main()
 						timer-=decrease--;
 					}
 				}
+	final += 100*count;
 				t_shape new_shape = FunctionCS(StructsArray[rand()%7]);
 				new_shape.col = rand()%(C-new_shape.width+1);
 				new_shape.row = 0;
