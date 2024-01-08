@@ -1,13 +1,27 @@
 #include "../tetris.h"
 
+static void	get_mino_overlay(char Buffer[R][C]);
+static void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
+static void	display_score(int score, int (*print_callback)(const char *fmt, ...));
+
 //FunctionPT
 void	display_board(void)
 {
 	char	Buffer[R][C];
+
+	memcpy(Buffer, Table, R * C * sizeof(char));
+	get_mino_overlay(Buffer);
+	clear();
+	display_title("42 Tetris\n", printw);
+	display_array(Buffer, printw);
+	display_score(final, printw);
+}
+
+static void	get_mino_overlay(char Buffer[R][C])
+{
 	int		i;
 	int		j;
 
-	memcpy(Buffer, Table, R * C * sizeof(char));
 	i = 0;
 	while (i < current.width)
 	{
@@ -20,14 +34,22 @@ void	display_board(void)
 		}
 		i++;
 	}
-	clear();
+}
+
+static void	display_title(char *title, int (*print_callback)(const char *fmt, ...))
+{
+	int	i;
+
 	i = 0;
 	while (i < C - 9)
 	{
-		printw(" ");
+		print_callback(" ");
 		i++;
 	}
-	printw("42 Tetris\n");
-	display_array(Buffer, printw);
-	printw("\nScore: %d\n", final);
+	print_callback("42 Tetris\n");
+}
+
+static void	display_score(int score, int (*print_callback)(const char *fmt, ...))
+{
+	print_callback("\nScore: %d\n", score);
 }
