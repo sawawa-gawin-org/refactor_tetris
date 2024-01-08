@@ -8,7 +8,7 @@
 				"-fdiagnostics-color=always",
 				"-g3",
 				"-fsanitize=address",
-				"${workspaceFolder}/*.c",
+				"${workspaceFolder}/srcs/*.c",
 				"-lncurses",
 				"-o","${workspaceFolder}/tetris",
 			],
