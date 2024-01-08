@@ -47,5 +47,7 @@ void 	fall_down_block(void);
 int		hasToUpdate(void);
 
 void	display_array(char array[R][C], int (*print_callback)(const char *fmt, ...));
+void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
+void	display_score(int score, int (*print_callback)(const char *fmt, ...));
 
 #endif
