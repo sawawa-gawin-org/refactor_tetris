@@ -1,7 +1,15 @@
 #include "../tetris.h"
 
 //hasToUpdate
-int	hasToUpdate(void)
+int	has_to_update(suseconds_t timer)
 {
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
+	suseconds_t		now_time_us;
+	suseconds_t		pre_time_us;
+
+	now_time_us = (suseconds_t)(now_time.tv_sec * 1000000 + now_time.tv_usec);
+	pre_time_us = (suseconds_t)(pre_time.tv_sec * 1000000 + pre_time.tv_usec);
+	if (now_time_us - pre_time_us > timer)
+		return (TRUE);
+	else
+		return (FALSE);
 }

@@ -5,8 +5,8 @@ char Table[HEIGHT][WIDTH] = {0};
 t_shape current;
 int final = 0;
 suseconds_t timer = 400000;
-struct timeval before_now;
-struct timeval now;
+struct timeval pre_time;
+struct timeval now_time;
 
 //まだ
 char GameOn = T;
@@ -71,7 +71,7 @@ int	main(void)
 	if(!detect_reaching_top(current)){
 		GameOn = F;
 	}
-	gettimeofday(&before_now, NULL); //時刻の取得(datetime.now()と同じ) 画面更新間隔の計算で使用
+	gettimeofday(&pre_time, NULL); //時刻の取得(datetime.now_time()と同じ) 画面更新間隔の計算で使用
 	display_board();
 	/* 2 パターンの処理がゲーム終了まで続く半無限ループ 
 		// 1. キーボードのwasdの有無の確認とそれに応じた処理
@@ -110,8 +110,8 @@ int	main(void)
 			destroy_old_block(tmp_shape);
 			display_board();
 		}
-		gettimeofday(&now, NULL); // 時間経過判定のための時刻取得
-		if (hasToUpdate()) { // 時間経過による落下(前回のループ終了からここまでの経過時間が>1sならば)
+		gettimeofday(&now_time, NULL); // 時間経過判定のための時刻取得
+		if (has_to_update(time)) {
 			tmp_shape = create_new_block(current);
 			tmp_shape.row++;
 			if(detect_reaching_top(tmp_shape))
@@ -121,7 +121,7 @@ int	main(void)
 			}
 			destroy_old_block(tmp_shape);
 			display_board();
-			gettimeofday(&before_now, NULL);// 時間経過判定のための時刻取得
+			gettimeofday(&pre_time, NULL);// 時間経過判定のための時刻取得
 		}
 	}
 	destroy_old_block(current);
