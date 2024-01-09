@@ -7,6 +7,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <time.h>
 # include <sys/time.h>
 # include <ncurses.h>
@@ -44,5 +45,9 @@ void	rotate_block(t_shape shape);
 void	display_board(void);
 void 	fall_down_block(void);
 int		hasToUpdate(void);
+
+void	display_array(char array[R][C], int (*print_callback)(const char *fmt, ...));
+void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
+void	display_score(int score, int (*print_callback)(const char *fmt, ...));
 
 #endif
