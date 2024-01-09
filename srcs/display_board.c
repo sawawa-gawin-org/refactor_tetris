@@ -12,7 +12,7 @@ void	display_board(void)
 	clear();
 	display_title("42 Tetris\n", printw);
 	display_array(buffer, printw);
-	display_score(final, printw);
+	display_score(g_score, printw);
 }
 
 static void	get_mino_overlay(char buffer[HEIGHT][WIDTH])

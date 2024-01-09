@@ -57,7 +57,7 @@ static void	erase_completed_line(int height, int sum)
 	
 	if (sum == WIDTH)//合計数がゲーム画面横幅に等しいなら
 	{
-		final += 100;//スコアを100加算
+		g_score += 100;//スコアを100加算
 		while (height > 0)//最上部を除いた高さの間
 		{
 			width = 0;
@@ -74,7 +74,7 @@ static void	erase_completed_line(int height, int sum)
 			Table[height][width] = 0;//最上部を0クリア
 			width++;
 		}
-		decrease = decrease > 0 ? decrease - 1 : 0; 
-		interval -= decrease;
+		g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 
+		g_interval -= g_decrease;
 	}
 }
