@@ -3,9 +3,13 @@
 //FunctionDS
 void	destroy_old_block(t_shape shape)
 {
-	int i;
-	for(i = 0; i < shape.width; i++){
+	int	i;
+
+	i = 0;
+	while (i < shape.width)
+	{
 		free(shape.array[i]);
+		i++;
 	}
 	free(shape.array);
 }
