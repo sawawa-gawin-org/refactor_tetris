@@ -3,6 +3,7 @@
 # define HEIGHT 20
 # define WIDTH 15
 # define INITIAL_UPDATE_INTERVAL 400000
+# define INITIAL_INTERVAL_DECREASE 893 // 1/2*893*(893+1) < 400000
 # define T 1
 # define F 0
 

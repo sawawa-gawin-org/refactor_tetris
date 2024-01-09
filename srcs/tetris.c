@@ -43,6 +43,7 @@ static void	init_globals(void)
 {
 	final = 0;
 	interval = INITIAL_UPDATE_INTERVAL;
+	decrease = INITIAL_INTERVAL_DECREASE;
 	/* 初期ミノ設定 */
     destroy_old_block(current); // グローバル変数なので、前回のミノの明示的解放?
 }
@@ -112,7 +113,7 @@ int	main(void)
 			display_board();
 		}
 		gettimeofday(&now_time, NULL); // 時間経過判定のための時刻取得
-		if (has_to_update(time)) {
+		if (has_to_update(interval)) {
 			tmp_shape = create_new_block(current);
 			tmp_shape.row++;
 			if(detect_reaching_top(tmp_shape))
