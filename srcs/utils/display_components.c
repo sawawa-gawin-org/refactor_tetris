@@ -17,7 +17,7 @@ void	display_title(char *title, int (*print_callback)(const char *fmt, ...))
 	int	i;
 
 	i = 0;
-	while (i < WIDTH - 9)
+	while (i < WIDTH - 9) // why 9?
 	{
 		print_callback(" ");
 		i++;

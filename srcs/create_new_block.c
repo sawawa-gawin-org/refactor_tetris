@@ -22,5 +22,3 @@ t_shape	create_new_block(t_shape shape)
 	}
 	return (new_shape);
 }
-
-

@@ -54,7 +54,7 @@ static void	put_block_on_table(void)
 static void	erase_completed_line(int height, int sum)
 {
 	int	width;
-	
+
 	if (sum == WIDTH)//合計数がゲーム画面横幅に等しいなら
 	{
 		g_score += 100;//スコアを100加算
