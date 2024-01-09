@@ -12,7 +12,7 @@ int	detect_reaching_top(t_shape shape)
 		j = 0;
 		while (j < shape.width)
 		{
-			if((shape.col + j < 0 || shape.col + j >= WIDTH || shape.row + i >= HEIGHT))
+			if((shape.col + j < 0 || shape.col + j >= C || shape.row + i >= R))
 			{
 				if(array[i][j])
 					return (0);

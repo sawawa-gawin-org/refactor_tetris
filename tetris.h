@@ -1,7 +1,7 @@
 #ifndef TETRIS_H
 # define TETRIS_H
-# define HEIGHT 20
-# define WIDTH 15
+# define R 20
+# define C 15
 # define T 1
 # define F 0
 
@@ -29,7 +29,7 @@ enum	e_interface
 };
 
 extern t_shape current;
-extern char Table[HEIGHT][WIDTH];
+extern char Table[R][C];
 extern int final;
 extern suseconds_t timer;
 extern struct timeval before_now;
@@ -47,7 +47,7 @@ void	display_board(void);
 void 	fall_down_block(void);
 int		hasToUpdate(void);
 
-void	display_array(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
+void	display_array(char array[R][C], int (*print_callback)(const char *fmt, ...));
 void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
 void	display_score(int score, int (*print_callback)(const char *fmt, ...));
 
