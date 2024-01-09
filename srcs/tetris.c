@@ -1,7 +1,7 @@
 #include "../tetris.h"
 
 //extern済み
-char Table[R][C] = {0};
+char Table[HEIGHT][WIDTH] = {0};
 t_shape current;
 int final = 0;
 suseconds_t timer = 400000;
@@ -59,8 +59,8 @@ int	main(void)
 
 	/* 以下値の受け渡し方法に改善の余地がある気がする */
 	// new_shape = create_new_block(StructsArray[rand()%7]); // ミノ全7パターンから選択
-    // new_shape.col = rand() % (C - new_shape.width+1); // 落ちる場所: C:15(グリッド横)
-    // new_shape.row = 0; // 落ちる場所：[0, R] R:20(グリッド縦)
+    // new_shape.col = rand() % (WIDTH - new_shape.width+1); // 落ちる場所: WIDTH:15(グリッド横)
+    // new_shape.row = 0; // 落ちる場所：[0, HEIGHT] HEIGHT:20(グリッド縦)
 	// current = new_shape;
 	
 	current = create_next_block();//fall_down_autoに同様の箇所があったため共通化しました
