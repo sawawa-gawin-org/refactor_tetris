@@ -39,6 +39,7 @@ extern int decrease;
 extern const t_shape StructsArray[7];
 
 t_shape	create_new_block(t_shape shape);
+t_shape	create_next_block(void);
 void	destroy_old_block(t_shape shape);
 int		detect_reaching_top(t_shape shape);
 void	rotate_block(t_shape shape);

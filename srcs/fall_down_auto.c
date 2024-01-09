@@ -1,38 +1,80 @@
 #include "../tetris.h"
 
+static void	put_block_on_table(void);
+static void	erase_completed_line(int height, int sum);
+
+//currentはt_shape new=shape
+//widthは、正方形の1辺の長さ。取りうる面積。2x2ならwidth2で2x2、1x4はwidth4で4x4の範囲
 void fall_down_block(void)
 {
-	int i, j;
-	for(i = 0; i < current.width ;i++){
-		for(j = 0; j < current.width ; j++){
-			if(current.array[i][j])
-				Table[current.row+i][current.col+j] = current.array[i][j];
-		}
-	}
-	int n, m, sum, count=0;
-	for(n=0;n<R;n++){
+	int height, width, sum;
+	
+	put_block_on_table();
+	height = 0;
+	while (height < R)//0-19(ゲーム画面縦)
+	{
 		sum = 0;
-		for(m=0;m< C;m++) {
-			sum+=Table[n][m];
+		width = 0;
+		while (width < C)//0-14(ゲーム画面横)
+		{
+			sum += Table[height][width];//Table[縦][横]、intで0か1。ブロックがあれば1
+			width++;
 		}
-		if(sum==C){
-			count++;
-			int l, k;
-			for(k = n;k >=1;k--)
-				for(l=0;l<C;l++)
-					Table[k][l]=Table[k-1][l];
-			for(l=0;l<C;l++)
-				Table[k][l]=0;
-			timer-=decrease--;
-		}
+		//sum：高さnの行にあるブロックの合計数
+		erase_completed_line(height, sum);
+		height++;
 	}
-	final += 100*count;
-	t_shape new_shape = create_new_block(StructsArray[rand()%7]);
-	new_shape.col = rand()%(C-new_shape.width+1);
-	new_shape.row = 0;
 	destroy_old_block(current);
-	current = new_shape;
-	if(!detect_reaching_top(current)){
+	current = create_next_block();//currentを更新する部分をmainのものと共通化
+	if(!detect_reaching_top(current))
 		GameOn = F;
+}
+
+static void	put_block_on_table(void)
+{
+	int i, j;
+
+	i = 0;
+	while (i < current.width)//0-ブロックの横幅。正方形の縦
+	{
+		j = 0;
+		while (j < current.width)//0-ブロックの横幅。正方形の横。
+		{
+			if(current.array[i][j])//もし正方形内のi,jにブロックがあるなら
+			{
+				//Table(ゲーム盤面)にブロックを置く。
+				Table[current.row + i][current.col + j] = current.array[i][j];
+			}
+			j++;
+		}
+		i++;
 	}
 }
+
+static void	erase_completed_line(int height, int sum)
+{
+	int	width;
+	
+	if (sum == C)//合計数がゲーム画面横幅に等しいなら
+	{
+		final += 100;//スコアを100加算
+		while (height > 0)//最上部を除いた高さの間
+		{
+			width = 0;
+			while (width < C)//横幅の間
+			{
+				Table[height][width] = Table[height - 1][width];//ブロックを1行ずつ下にずらす。
+				width++;
+			}
+			height--;
+		}
+		width = 0;
+		while (width < C)
+		{
+			Table[height][width] = 0;//最上部を0クリア
+			width++;
+		}
+		timer -= decrease--;
+	}
+}
+

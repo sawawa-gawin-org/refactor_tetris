@@ -4,10 +4,7 @@
 void	rotate_block(t_shape shape)
 {
 	t_shape	temp = create_new_block(shape);
-	int 	i;
-	int		j;
-	int		k;
-	int		width;
+	int 	i, j, k, width;
 
 	width = shape.width;
 	i = 0;
