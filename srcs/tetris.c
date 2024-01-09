@@ -130,6 +130,6 @@ int	main(void)
 	/* 以降 標準出力での出力 */
 	display_array(Table, printf);
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", g_score);
+	display_score(g_score, printf);
     return 0;
 }
