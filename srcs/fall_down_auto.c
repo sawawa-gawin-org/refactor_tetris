@@ -74,7 +74,7 @@ static void	erase_completed_line(int height, int sum)
 			Table[height][width] = 0;//最上部を0クリア
 			width++;
 		}
-		timer -= decrease--;
+		interval -= decrease--; // スコア上昇につき落下速度増加
 	}
 }
 

@@ -4,7 +4,7 @@
 char Table[HEIGHT][WIDTH] = {0};
 t_shape current;
 int final = 0;
-suseconds_t timer = 400000;
+suseconds_t interval;
 struct timeval pre_time;
 struct timeval now_time;
 
@@ -42,6 +42,7 @@ static void	init_globals(void);
 static void	init_globals(void)
 {
 	final = 0;
+	interval = INITIAL_UPDATE_INTERVAL;
 	/* 初期ミノ設定 */
     destroy_old_block(current); // グローバル変数なので、前回のミノの明示的解放?
 }
