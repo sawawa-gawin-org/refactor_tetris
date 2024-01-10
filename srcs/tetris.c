@@ -21,40 +21,25 @@ const t_shape StructsArray[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4}
 };
 
-static void	update_with_limit(int input_key);
-static void	update_with_key_press();
+static void	update_with_key_press(int input_key);
+static void	update_with_limit();
 
 // create_new_block: 落下してくるブロックの配列にメタデータを付与して返す。
 // destroy_old_block: 配列のオブジェクトを解放する。
 // rotate_block: 配列のオブジェクトを回転？
 // display_screen: 背景オブジェクト、タイトルとかスコアの表示
 // detect_reaching_top: 上まで積み上がったか判定
-/* 
-# define T 1 : Trueのこと
-# define F 0 : Falseのこと
-というか、このdefineは<ncurses.h>内部にTRUE/FALSEで存在する。
-*/
+
 // t_shapeは{(3,3),(4,1),(2,2)}のグリッド。
 // ex: {(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
 // 最後の要素はブロックの高さサイズ(Iミノは4, Oミノは2)
-
-// 不要かもしれない
-// static void	init_globals(void)
-// {
-// 	g_score = 0;
-// 	g_interval = INITIAL_UPDATE_INTERVAL;
-// 	g_decrease = INITIAL_INTERVAL_DECREASE;
-// 	/* 初期ミノ設定 */
-//     destroy_old_block(current); // グローバル変数なので、前回のミノの明示的解放?
-// }
 
 int	main(void)
 {
 	int	input_key;
 
-	// init_globals();
 	destroy_old_block(current);
-    // srand(time(0));  // 乱数のseed設定、srand(1)としたら、毎回同じ順序位置でミノが落ちる
+    // srand(time(0));
 	srand(0); // as Debug
 
 	/* TUIの開始 */
@@ -90,21 +75,7 @@ int	main(void)
 	return (0);
 }
 
-static void	update_with_key_press()
-{
-	t_shape	tmp_shape;
-
-	tmp_shape = create_new_block(current);
-	tmp_shape.row++;
-	if(!detect_reaching_top(tmp_shape))
-		current.row++;
-	else
-		fall_down_blocks();
-	destroy_old_block(tmp_shape);
-	display_screen();
-}
-
-static void	update_with_limit(int input_key)
+static void	update_with_key_press(int input_key)
 {
 	t_shape	tmp_shape;
 
@@ -135,6 +106,20 @@ static void	update_with_limit(int input_key)
 		if (!detect_reaching_top(tmp_shape))
 			rotate_block(current);//currentが90度右に回転する。
 	}
+	destroy_old_block(tmp_shape);
+	display_screen();
+}
+
+static void	update_with_limit()
+{
+	t_shape	tmp_shape;
+
+	tmp_shape = create_new_block(current);
+	tmp_shape.row++;
+	if(!detect_reaching_top(tmp_shape))
+		current.row++;
+	else
+		fall_down_blocks();
 	destroy_old_block(tmp_shape);
 	display_screen();
 }
