@@ -1,14 +1,20 @@
 #include "../../tetris.h"
 
-void	display_array(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...))
+void	display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...))
 {
 	int i, j;
 
-	for (i = 0; i < HEIGHT; i++){
-		for (j = 0; j < WIDTH; j++){
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
 			print_callback("%c ", array[i][j] ? '#': '.');
+			j++;
 		}
 		print_callback("\n");
+		i++;
 	}
 }
 
@@ -17,15 +23,10 @@ void	display_title(char *title, int (*print_callback)(const char *fmt, ...))
 	int	i;
 
 	i = 0;
-	while (i < WIDTH - 9) // why 9?
+	while (i < WIDTH - 9) // why 9? wakaranai...
 	{
 		print_callback(" ");
 		i++;
 	}
 	print_callback("42 Tetris\n");
-}
-
-void	display_score(int score, int (*print_callback)(const char *fmt, ...))
-{
-	print_callback("\nScore: %d\n", score);
 }
