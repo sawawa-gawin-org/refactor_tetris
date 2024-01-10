@@ -4,12 +4,10 @@ char			Table[HEIGHT][WIDTH] = {0};
 t_shape			current;
 
 int				g_score = 0;
-suseconds_t		g_interval = INITIAL_UPDATE_INTERVAL;
-int				g_decrease = INITIAL_INTERVAL_DECREASE;
-struct timeval	g_pre_time;
-struct timeval	g_now_time;
+suseconds_t		g_timelimit = INITIAL_TIMELIMIT;
+int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
-char			GameOn = TRUE;
+int				GameOn = TRUE;
 
 const t_shape StructsArray[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3},
@@ -24,52 +22,41 @@ const t_shape StructsArray[7]= {
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
 
-// create_new_block: 落下してくるブロックの配列にメタデータを付与して返す。
-// destroy_old_block: 配列のオブジェクトを解放する。
-// rotate_block: 配列のオブジェクトを回転？
-// display_screen: 背景オブジェクト、タイトルとかスコアの表示
-// detect_reaching_top: 上まで積み上がったか判定
-
-// t_shapeは{(3,3),(4,1),(2,2)}のグリッド。
-// ex: {(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}
-// 最後の要素はブロックの高さサイズ(Iミノは4, Oミノは2)
-
 int	main(void)
 {
-	int	input_key;
+	suseconds_t	pre_time, now_time;
+	int			input_key;
 
 	destroy_old_block(current);
     // srand(time(0));
 	srand(0); // as Debug
 
 	/* TUIの開始 */
-    initscr(); // スクリーンを初期化する
+    initscr();
 	timeout(1);
 	current = create_next_block();//fall_down_blocksに同様の箇所があったため共通化しました
-	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、
-	現状のバグでFunctionPT();が呼び出された際に自動失敗
-	 */
+	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
 	if(detect_reaching_top(current))//create_next_blockを呼ぶ部分は共通してこの処理をやっているので、共通にしてもいいかも
-		GameOn = FALSE;
+		GameOn = FALSE; // 下のdisplay_screenでsegfaultが起きる
 
-	gettimeofday(&g_pre_time, NULL); //時刻の取得(datetime.g_now_time()と同じ) 画面更新間隔の計算で使用
+	pre_time = gettime_as_us();
 	display_screen();
 	while(GameOn)
 	{
 		if ((input_key = getch()) != ERR)
 		{
-			update_with_limit(input_key);
+			update_with_key_press(input_key);
 		}
-		gettimeofday(&g_now_time, NULL); // 時間経過判定のための時刻取得
-		if (has_to_update(g_interval))
+		now_time = gettime_as_us();
+		if (now_time - pre_time > g_timelimit)
 		{
-			update_with_key_press();
-			gettimeofday(&g_pre_time, NULL);// 時間経過判定のための時刻取得
+			update_with_limit();
+			pre_time = gettime_as_us();
 		}
 	}
 	destroy_old_block(current);
 	endwin();
-	/* 以降 標準出力での出力 */
+	/* TUIの終了 */
 	display_board(Table, printf);
 	printf("\nGame over!\n\nScore: %d\n", g_score);
 	return (0);

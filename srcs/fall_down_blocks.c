@@ -76,6 +76,6 @@ static void	erase_completed_line(int height, int sum)
 			width++;
 		}
 		g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 
-		g_interval -= g_decrease;
+		g_timelimit -= g_decrease;
 	}
 }
