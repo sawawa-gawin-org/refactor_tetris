@@ -1,18 +1,18 @@
 #include "../tetris.h"
 
-//FunctionRS
+//ブロック(shape.array)を90度右回転させる関数。引数のshapeを更新する。
 void	rotate_block(t_shape shape)
 {
-	t_shape	temp = create_new_block(shape);
-	int 	i, j, k, width;
+	t_shape	temp;
+	int 	i, j, k;
 
-	width = shape.width;
+	temp = create_new_block(shape);
 	i = 0;
-	while (i < width)
+	while (i < shape.width)
 	{
 		j = 0;
-		k = width - 1;
-		while (j < width)
+		k = shape.width - 1;
+		while (j < shape.width)
 		{
 			shape.array[i][j] = temp.array[k][i];
 			j++;

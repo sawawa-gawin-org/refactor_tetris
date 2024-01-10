@@ -45,12 +45,11 @@ t_shape	create_next_block(void);
 void	destroy_old_block(t_shape shape);
 int		detect_reaching_top(t_shape shape);
 void	rotate_block(t_shape shape);
-void	display_board(void);
+void	display_screen(void);
 void 	fall_down_block(void);
 int		has_to_update(suseconds_t g_interval);
 
-void	display_array(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
+void	display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
-void	display_score(int score, int (*print_callback)(const char *fmt, ...));
 
 #endif

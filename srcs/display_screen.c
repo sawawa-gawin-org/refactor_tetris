@@ -2,8 +2,8 @@
 
 static void	get_mino_overlay(char buffer[HEIGHT][WIDTH]);
 
-//FunctionPT
-void	display_board(void)
+//ゲーム画面全体(タイトル、ボード、スコア)を描画する関数
+void	display_screen(void)
 {
 	char	buffer[HEIGHT][WIDTH];
 
@@ -11,14 +11,13 @@ void	display_board(void)
 	get_mino_overlay(buffer);
 	clear();
 	display_title("42 Tetris\n", printw);
-	display_array(buffer, printw);
-	display_score(g_score, printw);
+	display_board(buffer, printw);
+	printw("\nScore: %d\n", g_score);
 }
 
 static void	get_mino_overlay(char buffer[HEIGHT][WIDTH])
 {
-	int		i;
-	int		j;
+	int		i, j;
 
 	i = 0;
 	while (i < current.width)
@@ -27,7 +26,7 @@ static void	get_mino_overlay(char buffer[HEIGHT][WIDTH])
 		while (j < current.width)
 		{
 			if(current.array[i][j])
-				buffer[current.row+i][current.col+j] += current.array[i][j];
+				buffer[current.row + i][current.col + j] += current.array[i][j];
 			j++;
 		}
 		i++;
