@@ -46,7 +46,7 @@ void	destroy_old_block(t_shape shape);
 int		detect_reaching_top(t_shape shape);
 void	rotate_block(t_shape shape);
 void	display_screen(void);
-void 	fall_down_block(void);
+void 	fall_down_blocks(void);
 int		has_to_update(suseconds_t g_interval);
 
 void	display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));

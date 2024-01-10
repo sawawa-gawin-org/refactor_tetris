@@ -89,7 +89,7 @@ int	main(void)
 				if (!detect_reaching_top(tmp_shape))
 					current.row++;
 				else
-					fall_down_block();
+					fall_down_blocks();
 			}
 			else if (input_key == MV_RIGHT_KEY)
 			{
@@ -120,7 +120,7 @@ int	main(void)
 			if(!detect_reaching_top(tmp_shape))
 				current.row++;
 			else
-				fall_down_block();
+				fall_down_blocks();
 			destroy_old_block(tmp_shape);
 			display_screen();
 			gettimeofday(&g_pre_time, NULL);// 時間経過判定のための時刻取得
