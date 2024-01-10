@@ -1,16 +1,15 @@
 #include "../tetris.h"
 
-//extern済み
-char Table[R][C] = {0};
-t_shape current;
-int final = 0;
-suseconds_t timer = 400000;
-struct timeval before_now;
-struct timeval now;
+char			Table[HEIGHT][WIDTH] = {0};
+t_shape			current;
 
-//まだ
-char GameOn = T;
-int decrease = 1000;
+int				g_score;
+suseconds_t		g_interval;
+int				g_decrease; // 画面更新間隔の減少量
+struct timeval	g_pre_time;
+struct timeval	g_now_time;
+
+char			GameOn = T;
 
 const t_shape StructsArray[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3},
@@ -41,7 +40,9 @@ static void	init_globals(void);
 // 不要かもしれない
 static void	init_globals(void)
 {
-	final = 0;
+	g_score = 0;
+	g_interval = INITIAL_UPDATE_INTERVAL;
+	g_decrease = INITIAL_INTERVAL_DECREASE;
 	/* 初期ミノ設定 */
     destroy_old_block(current); // グローバル変数なので、前回のミノの明示的解放?
 }
@@ -59,8 +60,8 @@ int	main(void)
 
 	/* 以下値の受け渡し方法に改善の余地がある気がする */
 	// new_shape = create_new_block(StructsArray[rand()%7]); // ミノ全7パターンから選択
-    // new_shape.col = rand() % (C - new_shape.width+1); // 落ちる場所: C:15(グリッド横)
-    // new_shape.row = 0; // 落ちる場所：[0, R] R:20(グリッド縦)
+    // new_shape.col = rand() % (WIDTH - new_shape.width+1); // 落ちる場所: WIDTH:15(グリッド横)
+    // new_shape.row = 0; // 落ちる場所：[0, HEIGHT] HEIGHT:20(グリッド縦)
 	// current = new_shape;
 	
 	current = create_next_block();//fall_down_autoに同様の箇所があったため共通化しました
@@ -71,7 +72,7 @@ int	main(void)
 	if(!detect_reaching_top(current)){
 		GameOn = F;
 	}
-	gettimeofday(&before_now, NULL); //時刻の取得(datetime.now()と同じ) 画面更新間隔の計算で使用
+	gettimeofday(&g_pre_time, NULL); //時刻の取得(datetime.g_now_time()と同じ) 画面更新間隔の計算で使用
 	display_board();
 	/* 2 パターンの処理がゲーム終了まで続く半無限ループ 
 		// 1. キーボードのwasdの有無の確認とそれに応じた処理
@@ -110,8 +111,8 @@ int	main(void)
 			destroy_old_block(tmp_shape);
 			display_board();
 		}
-		gettimeofday(&now, NULL); // 時間経過判定のための時刻取得
-		if (hasToUpdate()) { // 時間経過による落下(前回のループ終了からここまでの経過時間が>1sならば)
+		gettimeofday(&g_now_time, NULL); // 時間経過判定のための時刻取得
+		if (has_to_update(g_interval)) {
 			tmp_shape = create_new_block(current);
 			tmp_shape.row++;
 			if(detect_reaching_top(tmp_shape))
@@ -121,17 +122,14 @@ int	main(void)
 			}
 			destroy_old_block(tmp_shape);
 			display_board();
-			gettimeofday(&before_now, NULL);// 時間経過判定のための時刻取得
+			gettimeofday(&g_pre_time, NULL);// 時間経過判定のための時刻取得
 		}
 	}
 	destroy_old_block(current);
 	endwin();
 	/* 以降 標準出力での出力 */
-	int	score;
-
-	score = final;
 	display_array(Table, printf);
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", score);
+	display_score(g_score, printf);
     return 0;
 }

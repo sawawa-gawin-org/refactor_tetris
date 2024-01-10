@@ -11,11 +11,11 @@ void fall_down_block(void)
 	
 	put_block_on_table();
 	height = 0;
-	while (height < R)//0-19(ゲーム画面縦)
+	while (height < HEIGHT)//0-19(ゲーム画面縦)
 	{
 		sum = 0;
 		width = 0;
-		while (width < C)//0-14(ゲーム画面横)
+		while (width < WIDTH)//0-14(ゲーム画面横)
 		{
 			sum += Table[height][width];//Table[縦][横]、intで0か1。ブロックがあれば1
 			width++;
@@ -54,14 +54,14 @@ static void	put_block_on_table(void)
 static void	erase_completed_line(int height, int sum)
 {
 	int	width;
-	
-	if (sum == C)//合計数がゲーム画面横幅に等しいなら
+
+	if (sum == WIDTH)//合計数がゲーム画面横幅に等しいなら
 	{
-		final += 100;//スコアを100加算
+		g_score += 100;//スコアを100加算
 		while (height > 0)//最上部を除いた高さの間
 		{
 			width = 0;
-			while (width < C)//横幅の間
+			while (width < WIDTH)//横幅の間
 			{
 				Table[height][width] = Table[height - 1][width];//ブロックを1行ずつ下にずらす。
 				width++;
@@ -69,12 +69,12 @@ static void	erase_completed_line(int height, int sum)
 			height--;
 		}
 		width = 0;
-		while (width < C)
+		while (width < WIDTH)
 		{
 			Table[height][width] = 0;//最上部を0クリア
 			width++;
 		}
-		timer -= decrease--;
+		g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 
+		g_interval -= g_decrease;
 	}
 }
-

@@ -9,6 +9,7 @@
 				"-g3",
 				"-fsanitize=address",
 				"${workspaceFolder}/srcs/*.c",
+				"${workspaceFolder}/srcs/utils/*.c",
 				"-lncurses",
 				"-o","${workspaceFolder}/tetris",
 			],

@@ -1,7 +1,9 @@
 #ifndef TETRIS_H
 # define TETRIS_H
-# define R 20
-# define C 15
+# define HEIGHT 20
+# define WIDTH 15
+# define INITIAL_UPDATE_INTERVAL 400000
+# define INITIAL_INTERVAL_DECREASE 893 // 1/2*893*(893+1) < 400000
 # define T 1
 # define F 0
 
@@ -29,13 +31,13 @@ enum	e_interface
 };
 
 extern t_shape current;
-extern char Table[R][C];
-extern int final;
-extern suseconds_t timer;
-extern struct timeval before_now;
-extern struct timeval now;
+extern char Table[HEIGHT][WIDTH];
+extern int g_score;
+extern suseconds_t g_interval;
+extern struct timeval g_pre_time;
+extern struct timeval g_now_time;
 extern char GameOn;
-extern int decrease;
+extern int g_decrease;
 extern const t_shape StructsArray[7];
 
 t_shape	create_new_block(t_shape shape);
@@ -45,9 +47,9 @@ int		detect_reaching_top(t_shape shape);
 void	rotate_block(t_shape shape);
 void	display_board(void);
 void 	fall_down_block(void);
-int		hasToUpdate(void);
+int		has_to_update(suseconds_t g_interval);
 
-void	display_array(char array[R][C], int (*print_callback)(const char *fmt, ...));
+void	display_array(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void	display_title(char *title, int (*print_callback)(const char *fmt, ...));
 void	display_score(int score, int (*print_callback)(const char *fmt, ...));
 
