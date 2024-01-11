@@ -8,8 +8,8 @@ SRC_DIR = ./srcs/
 OBJ_DIR = ./obj/
 
 SRCS := tetris.c create_new_block.c destroy_old_block.c detect_reaching_top.c \
-		display_screen.c fall_down_blocks.c has_to_update.c rotate_block.c \
-		utils/display_components.c create_next_block.c
+		display_screen.c fall_down_blocks.c rotate_block.c create_next_block.c \
+		utils/display_components.c utils/gettime_as_us.c
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 
 # OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
