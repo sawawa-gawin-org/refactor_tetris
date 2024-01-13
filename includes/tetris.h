@@ -51,5 +51,6 @@ void		fall_down_block(void);
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));
 suseconds_t	gettime_as_us(void);
+int			sum_array(char *array, int size);
 
 #endif

@@ -9,14 +9,15 @@ int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
 int				GameOn = FALSE;
 
+// このミノの構造体は上に揃えないといけない
 const t_shape StructsArray[7]= {
-	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3},
-	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3},
-	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3},
-	{(char *[]){(char []){0,0,1},(char []){1,1,1}, (char []){0,0,0}}, 3},
-	{(char *[]){(char []){1,0,0},(char []){1,1,1}, (char []){0,0,0}}, 3},
-	{(char *[]){(char []){1,1},(char []){1,1}}, 2},
-	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4}
+	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}, // S mino
+	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3}, // Z mino
+	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3}, // T mino
+	{(char *[]){(char []){0,0,1},(char []){1,1,1}, (char []){0,0,0}}, 3}, // L mino
+	{(char *[]){(char []){1,0,0},(char []){1,1,1}, (char []){0,0,0}}, 3}, // J mino
+	{(char *[]){(char []){1,1},(char []){1,1}}, 2}, // O mino
+	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4} // I mino
 };
 
 static void	update_with_key_press(int input_key);
@@ -71,8 +72,13 @@ static void	update_with_key_press(int input_key)
 		tmp_shape.row++;
 		if (!is_reaching_top(tmp_shape))
 			current.row++;
-		else
+		else {
 			fall_down_block();
+			destroy_block(current);
+			current = create_random_block();
+			if(is_reaching_top(current))
+				GameOn = FALSE;
+		}
 	}
 	else if (input_key == MV_RIGHT_KEY)
 	{
@@ -104,8 +110,13 @@ static void	update_with_limit()
 	tmp_shape.row++;
 	if(!is_reaching_top(tmp_shape))
 		current.row++;
-	else
+	else {
 		fall_down_block();
+		destroy_block(current);
+		current = create_random_block();
+		if(is_reaching_top(current))
+			GameOn = FALSE;
+	}
 	destroy_block(tmp_shape);
 	display_screen();
 }

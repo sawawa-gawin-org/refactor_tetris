@@ -8,27 +8,19 @@ static void	erase_completed_line(int height, int sum);
 //widthは、正方形の1辺の長さ。取りうる面積。2x2ならwidth2で2x2、1x4はwidth4で4x4の範囲
 void fall_down_block(void)
 {
-	int height, width, sum;
-	
+	int height, sum;
+
 	put_block_on_table();
 	height = 0;
 	while (height < HEIGHT)//0-19(ゲーム画面縦)
 	{
-		sum = 0;
-		width = 0;
-		while (width < WIDTH)//0-14(ゲーム画面横)
-		{
-			sum += Table[height][width];//Table[縦][横]、intで0か1。ブロックがあれば1
-			width++;
-		}
 		//sum：高さnの行にあるブロックの合計数
-		erase_completed_line(height, sum);
+		sum = sum_array((char *) Table[height], WIDTH);
+		if (sum == WIDTH) {// 合計数がゲーム画面横幅に等しいなら
+			erase_completed_line(height, sum);
+		}
 		height++;
 	}
-	destroy_block(current);
-	current = create_random_block();//currentを更新する部分をmainのものと共通化
-	if(is_reaching_top(current))
-		GameOn = FALSE;
 }
 
 static void	put_block_on_table(void)
@@ -56,26 +48,23 @@ static void	erase_completed_line(int height, int sum)
 {
 	int	width;
 
-	if (sum == WIDTH)//合計数がゲーム画面横幅に等しいなら
+	g_score += 100;//スコアを100加算
+	while (height > 0)//最上部を除いた高さの間
 	{
-		g_score += 100;//スコアを100加算
-		while (height > 0)//最上部を除いた高さの間
-		{
-			width = 0;
-			while (width < WIDTH)//横幅の間
-			{
-				Table[height][width] = Table[height - 1][width];//ブロックを1行ずつ下にずらす。
-				width++;
-			}
-			height--;
-		}
 		width = 0;
-		while (width < WIDTH)
+		while (width < WIDTH)//横幅の間
 		{
-			Table[height][width] = 0;//最上部を0クリア
+			Table[height][width] = Table[height - 1][width];//ブロックを1行ずつ下にずらす。
 			width++;
 		}
-		g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 
-		g_timelimit -= g_decrease;
+		height--;
 	}
+	width = 0;
+	while (width < WIDTH)
+	{
+		Table[height][width] = 0;//最上部を0クリア
+		width++;
+	}
+	g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 
+	g_timelimit -= g_decrease;
 }
