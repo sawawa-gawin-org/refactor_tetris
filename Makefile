@@ -7,19 +7,20 @@ IFLAGS = -I./includes/
 SRC_DIR = ./srcs/
 
 OBJ_DIR = ./obj/
+SUB_OBJ_DIR = cores utils
 
-SRCS := tetris.c create_new_block.c destroy_old_block.c detect_reaching_top.c \
-		display_screen.c fall_down_blocks.c rotate_block.c create_next_block.c \
+SRCS := main.c \
+		cores/create_block.c cores/destroy_block.c cores/is_reaching_top.c \
+		cores/display_screen.c cores/fall_down_block.c cores/rotate_block.c \
 		utils/display_components.c utils/gettime_as_us.c
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 
-# OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: $(OBJ_DIR) $(NAME)
 
 $(OBJ_DIR):
-	mkdir -p obj/utils
+	mkdir -p $(addprefix $(OBJ_DIR), $(SUB_OBJ_DIR))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(IFLAGS) -c $< -o $@

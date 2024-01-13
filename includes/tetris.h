@@ -40,13 +40,13 @@ extern int				g_decrease;
 extern int				GameOn;
 extern const t_shape	StructsArray[7];
 
-t_shape		create_new_block(t_shape shape);
-t_shape		create_next_block(void);
-void		destroy_old_block(t_shape shape);
-int			detect_reaching_top(t_shape shape);
+t_shape		allocate_block(t_shape shape);
+t_shape		create_random_block(void);
+void		destroy_block(t_shape shape);
+int			is_reaching_top(t_shape shape);
 void		rotate_block(t_shape shape);
 void		display_screen(void);
-void		fall_down_blocks(void);
+void		fall_down_block(void);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));
