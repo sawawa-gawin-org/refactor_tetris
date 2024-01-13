@@ -2,8 +2,9 @@ NAME = tetris
 
 CC = gcc
 CFLAGS = -lncurses
-IFLAGS = -I./includes/
+IFLAGS = -I$(HEADER_DIR)
 
+HEADER_DIR = ./includes/
 SRC_DIR = ./srcs/
 
 OBJ_DIR = ./obj/
@@ -15,6 +16,9 @@ SRCS := main.c \
 		utils/display_components.c utils/gettime_as_us.c
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 
+HEADERS := tetris.h
+HEADERS := $(addprefix $(HEADER_DIR), $(HEADERS))
+
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: $(OBJ_DIR) $(NAME)
@@ -22,7 +26,7 @@ all: $(OBJ_DIR) $(NAME)
 $(OBJ_DIR):
 	mkdir -p $(addprefix $(OBJ_DIR), $(SUB_OBJ_DIR))
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
 	$(CC) $(IFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
