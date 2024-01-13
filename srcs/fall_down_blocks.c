@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 static void	put_block_on_table(void);
 static void	erase_completed_line(int height, int sum);

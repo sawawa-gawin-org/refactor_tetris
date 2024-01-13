@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 //ブロックの初期状態(種類、落下開始位置)を決定する関数。
 t_shape	create_next_block(void)

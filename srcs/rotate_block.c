@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 //ブロック(shape.array)を90度右回転させる関数。引数のshapeを更新する。
 void	rotate_block(t_shape shape)

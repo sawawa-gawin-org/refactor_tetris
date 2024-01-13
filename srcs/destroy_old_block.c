@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 //t_shape型をfreeする関数
 void	destroy_old_block(t_shape shape)

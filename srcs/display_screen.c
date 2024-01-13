@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 static void	get_mino_overlay(char buffer[HEIGHT][WIDTH]);
 

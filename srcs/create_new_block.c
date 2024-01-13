@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 //ブロックが回転可能な正方形の空間を作り、引数のブロックを1マスづつ配置する関数
 t_shape	create_new_block(t_shape shape)

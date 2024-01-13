@@ -1,4 +1,4 @@
-#include "../tetris.h"
+#include "tetris.h"
 
 //最上部に達した時にTRUE、達しておらずゲーム続行可能であればFALSE
 int	detect_reaching_top(t_shape shape)

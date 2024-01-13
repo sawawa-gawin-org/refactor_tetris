@@ -2,6 +2,7 @@ NAME = tetris
 
 CC = gcc
 CFLAGS = -lncurses
+IFLAGS = -I./includes/
 
 SRC_DIR = ./srcs/
 
@@ -21,7 +22,7 @@ $(OBJ_DIR):
 	mkdir -p obj/utils
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) -c $< -o $@
+	$(CC) $(IFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
