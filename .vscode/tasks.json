@@ -28,6 +28,7 @@
 			"label": "tetris-make",
 			"command": "make",
 			"args": [
+				"debug",
 				"-C", "${workspaceFolder}"
 			],
 			"options": {
