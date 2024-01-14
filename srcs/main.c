@@ -34,7 +34,7 @@ int	main(void)
 	size_t		kinds_minos;
 	int			input_key;
 
-	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]);
+	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]); // validate_screen_size関数内で取得できないのなんでだっけ？
 	if (validate_screen_size(tetriminos, kinds_minos) == ERR)
 		exit(1);
 	destroy_block(current);
