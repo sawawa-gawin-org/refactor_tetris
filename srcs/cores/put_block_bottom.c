@@ -5,11 +5,11 @@ static void	erase_completed_line(int height, int sum);
 //行が揃った時、消去して1段下げ、スコアを加算する関数
 //currentはt_shape new=shape
 //widthは、正方形の1辺の長さ。取りうる面積。2x2ならwidth2で2x2、1x4はwidth4で4x4の範囲
-void fall_down_block(void)
+void put_block_bottom(void)
 {
 	int height, sum;
 
-	put_block_on_table();
+	update_table();
 	height = 0;
 	while (height < HEIGHT)//0-19(ゲーム画面縦)
 	{
@@ -22,7 +22,7 @@ void fall_down_block(void)
 	}
 }
 
-void	put_block_on_table(void)
+void	update_table(void)
 {
 	int i, j;
 

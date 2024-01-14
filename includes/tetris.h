@@ -46,8 +46,8 @@ void		destroy_block(t_shape shape);
 int			is_reaching_bottom(t_shape shape);
 void		rotate_block(t_shape shape);
 void		display_screen(void);
-void		fall_down_block(void);
-void		put_block_on_table(void);
+void		put_block_bottom(void);
+void		update_table(void);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));

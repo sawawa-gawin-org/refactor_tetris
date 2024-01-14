@@ -12,7 +12,7 @@ SUB_OBJ_DIR = cores utils
 
 SRCS := main.c \
 		cores/create_block.c cores/destroy_block.c cores/is_reaching_bottom.c \
-		cores/display_screen.c cores/fall_down_block.c cores/rotate_block.c \
+		cores/display_screen.c cores/put_block_bottom.c cores/rotate_block.c \
 		utils/display_components.c utils/gettime_as_us.c utils/sum.c
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 

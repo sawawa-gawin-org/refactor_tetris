@@ -73,7 +73,7 @@ static void	update_with_key_press(int input_key)
 		if (!is_reaching_bottom(tmp_shape))
 			current.row++;
 		else {
-			fall_down_block();
+			put_block_bottom();
 			destroy_block(current);
 			current = create_random_block();
 			if(is_reaching_bottom(current))
@@ -111,7 +111,7 @@ static void	update_with_limit()
 	if(!is_reaching_bottom(tmp_shape))
 		current.row++;
 	else {
-		fall_down_block();
+		put_block_bottom();
 		destroy_block(current);
 		current = create_random_block();
 		if(is_reaching_bottom(current)){
