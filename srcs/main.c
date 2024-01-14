@@ -31,13 +31,14 @@ static void	update_with_limit();
 int	main(void)
 {
 	suseconds_t	pre_time, now_time;
+	size_t		kinds_minos;
 	int			input_key;
 
-	size_t numElements = sizeof(tetriminos) / sizeof(tetriminos[0]);
-	
+	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]);
+	if (validate_screen_size(tetriminos, kinds_minos) == ERR)
+		exit(1);
 	destroy_block(current);
     srand(time(0));
-
 	/* TUIの開始 */
     initscr();
 	timeout(1);

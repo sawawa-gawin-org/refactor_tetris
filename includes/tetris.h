@@ -47,6 +47,7 @@ void		rotate_block(t_shape shape);
 void		display_screen(void);
 void		put_block_bottom(void);
 void		update_table(void);
+int			validate_screen_size(const t_shape *tetriminos, int kinds_minos);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));
