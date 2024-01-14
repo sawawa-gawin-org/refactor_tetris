@@ -9,8 +9,7 @@ int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
 int				GameOn = FALSE;
 
-// このミノの構造体は上に揃えないといけない
-const t_shape StructsArray[7]= {
+static const t_shape tetriminos[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}, // S mino
 	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3}, // Z mino
 	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3}, // T mino
@@ -34,13 +33,15 @@ int	main(void)
 	suseconds_t	pre_time, now_time;
 	int			input_key;
 
+	size_t numElements = sizeof(tetriminos) / sizeof(tetriminos[0]);
+	
 	destroy_block(current);
     srand(time(0));
 
 	/* TUIの開始 */
     initscr();
 	timeout(1);
-	current = create_random_block();
+	current = create_random_block(tetriminos);
 	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
 	if(!is_reaching_bottom(current)){ //create_next_blockを呼ぶ部分は共通してこの処理をやっているので、共通にしてもいいかも
 		GameOn = TRUE;
@@ -81,7 +82,7 @@ static void	update_with_key_press(int input_key)
 		else {
 			put_block_bottom();
 			destroy_block(current);
-			current = create_random_block();
+			current = create_random_block(tetriminos);
 			if(is_reaching_bottom(current))
 				GameOn = FALSE;
 		}
@@ -119,7 +120,7 @@ static void	update_with_limit()
 	else {
 		put_block_bottom();
 		destroy_block(current);
-		current = create_random_block();
+		current = create_random_block(tetriminos);
 		if(is_reaching_bottom(current)){
 			GameOn = FALSE;
 		}

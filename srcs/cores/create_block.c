@@ -1,11 +1,11 @@
 #include "tetris.h"
 
 //ブロックの初期状態(種類、落下開始位置)を決定する関数。
-t_shape	create_random_block(void)
+t_shape	create_random_block(const t_shape *tetriminos)
 {
 	t_shape	new_shape;
 
-	new_shape = allocate_block(StructsArray[rand() % 7]);
+	new_shape = allocate_block(tetriminos[rand() % 7]);
 	new_shape.col = rand() % (WIDTH - new_shape.width + 1);
 	new_shape.row = 0;
 	return (new_shape);
