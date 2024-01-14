@@ -11,7 +11,7 @@ int	validate_screen_size(const t_shape *tetriminos, int kinds_minos)
 	max_size = get_mino_max_size((t_shape *) tetriminos, kinds_minos);
 	if (max_size > WIDTH || max_size > HEIGHT)
 	{
-		fprintf(stderr, "%s\n", "Error: tetriminos are too big to fit in the game grid size\n");
+		fprintf(stderr, "%s\n", "Error: tetriminos are too big to fit in the game grid size");
 		return (ERR);
 	}
 	return (OK);
