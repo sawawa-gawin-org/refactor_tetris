@@ -23,6 +23,19 @@
 			],
 			"group": "build",
 		},
+		{
+			"type": "cppbuild",
+			"label": "tetris-make",
+			"command": "make",
+			"args": [
+				"debug",
+				"-C", "${workspaceFolder}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": "build",
+		},
 	],
 	"version": "2.0.0"
 }

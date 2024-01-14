@@ -8,10 +8,10 @@ int	is_reaching_bottom(t_shape shape)
 
 	array = shape.array;
 	i = 0;
-	while (i < shape.width)
+	while (i < shape.size)
 	{
 		j = 0;
-		while (j < shape.width)
+		while (j < shape.size)
 		{
 			if((shape.col + j < 0 || shape.col + j >= WIDTH || shape.row + i >= HEIGHT))
 			{

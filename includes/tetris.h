@@ -4,8 +4,6 @@
 # define WIDTH 15
 # define INITIAL_TIMELIMIT 400000
 # define INITIAL_TIMELIMIT_DECREASE 893 // 1/2*893*(893+1) < 400000
-# define T 1
-# define F 0
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -17,7 +15,7 @@
 typedef struct s_shape
 {
 	char	**array;
-	int		width;
+	int		size;
 	int		row;
 	int		col;
 }			t_shape;
@@ -38,16 +36,16 @@ extern suseconds_t		g_timelimit;
 extern int				g_decrease;
 
 extern int				GameOn;
-extern const t_shape	StructsArray[7];
 
 t_shape		allocate_block(t_shape shape);
-t_shape		create_random_block(void);
+t_shape		create_random_block(const t_shape *tetriminos);
 void		destroy_block(t_shape shape);
 int			is_reaching_bottom(t_shape shape);
 void		rotate_block(t_shape shape);
 void		display_screen(void);
 void		put_block_bottom(void);
 void		update_table(void);
+int			validate_screen_size(const t_shape *tetriminos, int kinds_minos);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));

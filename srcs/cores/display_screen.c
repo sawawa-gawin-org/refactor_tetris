@@ -20,10 +20,10 @@ static void	get_block_overlay(char buffer[HEIGHT][WIDTH])
 	int		i, j;
 
 	i = 0;
-	while (i < current.width)
+	while (i < current.size)
 	{
 		j = 0;
-		while (j < current.width)
+		while (j < current.size)
 		{
 			if(current.array[i][j])
 				buffer[current.row + i][current.col + j] += current.array[i][j];
