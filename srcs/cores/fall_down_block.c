@@ -1,6 +1,5 @@
 #include "tetris.h"
 
-static void	put_block_on_table(void);
 static void	erase_completed_line(int height, int sum);
 
 //行が揃った時、消去して1段下げ、スコアを加算する関数
@@ -23,7 +22,7 @@ void fall_down_block(void)
 	}
 }
 
-static void	put_block_on_table(void)
+void	put_block_on_table(void)
 {
 	int i, j;
 

@@ -1,10 +1,10 @@
 #include "tetris.h"
 
-//最上部に達した時にTRUE、達しておらずゲーム続行可能であればFALSE
-int	is_reaching_top(t_shape shape)
+//最上部もしくは底辺に達した時にTRUE、達しておらずゲーム続行可能であればFALSE
+int	is_reaching_bottom(t_shape shape)
 {
-	char **array;
-	int i, j;
+	char	**array;
+	int		i, j;
 
 	array = shape.array;
 	i = 0;

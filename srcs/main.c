@@ -36,7 +36,7 @@ int	main(void)
 	timeout(1);
 	current = create_random_block();
 	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
-	if(!is_reaching_top(current)){ //create_next_blockを呼ぶ部分は共通してこの処理をやっているので、共通にしてもいいかも
+	if(!is_reaching_bottom(current)){ //create_next_blockを呼ぶ部分は共通してこの処理をやっているので、共通にしてもいいかも
 		GameOn = TRUE;
 		display_screen();
 	}
@@ -70,32 +70,32 @@ static void	update_with_key_press(int input_key)
 	if (input_key == MV_DOWN_KEY)
 	{
 		tmp_shape.row++;
-		if (!is_reaching_top(tmp_shape))
+		if (!is_reaching_bottom(tmp_shape))
 			current.row++;
 		else {
 			fall_down_block();
 			destroy_block(current);
 			current = create_random_block();
-			if(is_reaching_top(current))
+			if(is_reaching_bottom(current))
 				GameOn = FALSE;
 		}
 	}
 	else if (input_key == MV_RIGHT_KEY)
 	{
 		tmp_shape.col++;
-		if (!is_reaching_top(tmp_shape))
+		if (!is_reaching_bottom(tmp_shape))
 			current.col++;
 	}
 	else if (input_key == MV_LEFT_KEY)
 	{
 		tmp_shape.col--;
-		if(!is_reaching_top(tmp_shape))
+		if(!is_reaching_bottom(tmp_shape))
 			current.col--;
 	}
 	else if (input_key == ROTATE_KEY)
 	{
 		rotate_block(tmp_shape);//tmp_shapeが90度右に回転する。
-		if (!is_reaching_top(tmp_shape))
+		if (!is_reaching_bottom(tmp_shape))
 			rotate_block(current);//currentが90度右に回転する。
 	}
 	destroy_block(tmp_shape);
@@ -108,14 +108,15 @@ static void	update_with_limit()
 
 	tmp_shape = allocate_block(current);
 	tmp_shape.row++;
-	if(!is_reaching_top(tmp_shape))
+	if(!is_reaching_bottom(tmp_shape))
 		current.row++;
 	else {
 		fall_down_block();
 		destroy_block(current);
 		current = create_random_block();
-		if(is_reaching_top(current))
+		if(is_reaching_bottom(current)){
 			GameOn = FALSE;
+		}
 	}
 	destroy_block(tmp_shape);
 	display_screen();
