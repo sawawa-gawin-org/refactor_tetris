@@ -27,10 +27,10 @@ void	update_table(void)
 	int i, j;
 
 	i = 0;
-	while (i < current.width)//0-ブロックの横幅。正方形の縦
+	while (i < current.size)//0-ブロックの横幅。正方形の縦
 	{
 		j = 0;
-		while (j < current.width)//0-ブロックの横幅。正方形の横。
+		while (j < current.size)//0-ブロックの横幅。正方形の横。
 		{
 			if(current.array[i][j])//もし正方形内のi,jにブロックがあるなら
 			{

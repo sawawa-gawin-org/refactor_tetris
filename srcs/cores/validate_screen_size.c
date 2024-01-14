@@ -30,7 +30,7 @@ static int	get_mino_max_size(const t_shape *tetriminos, int kinds_minos)
 	while (i < kinds_minos)
 	{
 		mino = tetriminos[i];
-		max_size = (max_size < mino.width) ? mino.width : max_size;
+		max_size = (max_size < mino.size) ? mino.size : max_size;
 		i++;
 	}
 	return (max_size);

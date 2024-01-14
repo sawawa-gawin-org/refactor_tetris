@@ -17,7 +17,7 @@
 typedef struct s_shape
 {
 	char	**array;
-	int		width;
+	int		size;
 	int		row;
 	int		col;
 }			t_shape;

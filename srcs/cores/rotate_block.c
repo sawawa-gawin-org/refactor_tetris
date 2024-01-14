@@ -8,11 +8,11 @@ void	rotate_block(t_shape shape)
 
 	temp = allocate_block(shape);
 	i = 0;
-	while (i < shape.width)
+	while (i < shape.size)
 	{
 		j = 0;
-		k = shape.width - 1;
-		while (j < shape.width)
+		k = shape.size - 1;
+		while (j < shape.size)
 		{
 			shape.array[i][j] = temp.array[k][i];
 			j++;
