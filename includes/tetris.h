@@ -4,8 +4,6 @@
 # define WIDTH 15
 # define INITIAL_TIMELIMIT 400000
 # define INITIAL_TIMELIMIT_DECREASE 893 // 1/2*893*(893+1) < 400000
-# define T 1
-# define F 0
 
 # include <stdio.h>
 # include <stdlib.h>
