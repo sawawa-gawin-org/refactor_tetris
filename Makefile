@@ -2,26 +2,32 @@ NAME = tetris
 
 CC = gcc
 CFLAGS = -lncurses
+IFLAGS = -I$(HEADER_DIR)
 
+HEADER_DIR = ./includes/
 SRC_DIR = ./srcs/
 
 OBJ_DIR = ./obj/
+SUB_OBJ_DIR = cores utils
 
-SRCS := tetris.c create_new_block.c destroy_old_block.c detect_reaching_top.c \
-		display_screen.c fall_down_blocks.c rotate_block.c create_next_block.c \
-		utils/display_components.c utils/gettime_as_us.c
+SRCS := main.c \
+		cores/create_block.c cores/destroy_block.c cores/is_reaching_bottom.c \
+		cores/display_screen.c cores/put_block_bottom.c cores/rotate_block.c \
+		utils/display_components.c utils/gettime_as_us.c utils/sum.c
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 
-# OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
+HEADERS := tetris.h
+HEADERS := $(addprefix $(HEADER_DIR), $(HEADERS))
+
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: $(OBJ_DIR) $(NAME)
 
 $(OBJ_DIR):
-	mkdir -p obj/utils
+	mkdir -p $(addprefix $(OBJ_DIR), $(SUB_OBJ_DIR))
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
+	$(CC) $(IFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)

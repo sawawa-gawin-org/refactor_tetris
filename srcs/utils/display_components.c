@@ -1,4 +1,4 @@
-#include "../../tetris.h"
+#include "tetris.h"
 
 void	display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...))
 {

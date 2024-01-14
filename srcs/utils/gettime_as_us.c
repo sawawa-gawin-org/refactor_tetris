@@ -1,4 +1,4 @@
-#include "../../tetris.h"
+#include "tetris.h"
 
 suseconds_t	gettime_as_us(void)
 {
