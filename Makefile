@@ -3,6 +3,7 @@ NAME = tetris
 CC = gcc
 CFLAGS = -lncurses
 IFLAGS = -I$(HEADER_DIR)
+DFLAGS = -fdiagnostics-color=always -g3 -fsanitize=address
 
 HEADER_DIR = ./includes/
 SRC_DIR = ./srcs/
@@ -20,7 +21,7 @@ SRCS := $(addprefix $(SRC_DIR), $(SRCS))
 HEADERS := tetris.h
 HEADERS := $(addprefix $(HEADER_DIR), $(HEADERS))
 
-OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 all: $(OBJ_DIR) $(NAME)
 
@@ -33,6 +34,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
 
+debug: $(OBJ_DIR) $(OBJS)
+	$(CC) $(DFLAGS) $(OBJS) $(CFLAGS) -o $(NAME)
+
 clean:
 	rm -rf $(OBJ_DIR)
 
@@ -41,4 +45,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re
