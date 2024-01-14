@@ -23,6 +23,12 @@ const t_shape StructsArray[7]= {
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
 
+// void end(void)__attribute__((destructor));
+// void end(void)
+// {
+//     system("leaks tetris");
+// }
+
 int	main(void)
 {
 	suseconds_t	pre_time, now_time;
