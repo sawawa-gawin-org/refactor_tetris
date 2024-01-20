@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-//t_shape型をfreeする関数
+//t_shape型の構造体のメンバの2次元配列をfreeする関数
 void	destroy_block(t_shape shape)
 {
 	int	i;

@@ -22,19 +22,13 @@ static const t_shape tetriminos[7]= {
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
 
-// void end(void)__attribute__((destructor));
-// void end(void)
-// {
-//     system("leaks tetris");
-// }
-
 int	main(void)
 {
 	suseconds_t	pre_time, now_time;
 	size_t		kinds_minos;
 	int			input_key;
 
-	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]); // validate_screen_size関数内で取得できないのなんでだっけ？
+	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]);
 	if (validate_screen_size(tetriminos, kinds_minos) == ERR)
 		exit(1);
 	destroy_block(current);
@@ -44,7 +38,8 @@ int	main(void)
 	timeout(1);
 	current = create_random_block(tetriminos);
 	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
-	if(!is_reaching_bottom(current)){ //create_next_blockを呼ぶ部分は共通してこの処理をやっているので、共通にしてもいいかも
+	if(!is_reaching_bottom(current))
+	{
 		GameOn = TRUE;
 		display_screen();
 	}
@@ -102,9 +97,9 @@ static void	update_with_key_press(int input_key)
 	}
 	else if (input_key == ROTATE_KEY)
 	{
-		rotate_block(tmp_shape);//tmp_shapeが90度右に回転する。
+		rotate_block(tmp_shape);
 		if (!is_reaching_bottom(tmp_shape))
-			rotate_block(current);//currentが90度右に回転する。
+			rotate_block(current);
 	}
 	destroy_block(tmp_shape);
 	display_screen();

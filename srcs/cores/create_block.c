@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-//ブロックの初期状態(種類、落下開始位置)を決定する関数。
+//ブロックの初期状態(種類、落下開始位置)をランダムに決定する関数
 t_shape	create_random_block(const t_shape *tetriminos)
 {
 	t_shape	new_shape;
@@ -11,8 +11,7 @@ t_shape	create_random_block(const t_shape *tetriminos)
 	return (new_shape);
 }
 
-//ブロックが回転可能な正方形の空間を作り、引数のブロックを1マスづつ配置する関数
-// allocate_block
+//mallocで割り当てた2次元配列に引数のブロックを入れる関数
 t_shape	allocate_block(t_shape shape)
 {
 	t_shape	new_shape;

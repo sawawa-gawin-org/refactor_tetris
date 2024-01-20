@@ -1,3 +1,5 @@
+#include "tetris.h"
+
 int	sum_array(char *array, int size)
 {
 	int	i;
