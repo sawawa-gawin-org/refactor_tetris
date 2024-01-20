@@ -37,7 +37,7 @@ extern int				g_decrease;
 
 extern int				GameOn;
 
-t_shape		allocate_block(t_shape shape);
+t_shape		duplicate_block(t_shape shape);
 t_shape		create_random_block(const t_shape *tetriminos);
 void		destroy_block(t_shape shape);
 int			is_reaching_bottom(t_shape shape);
