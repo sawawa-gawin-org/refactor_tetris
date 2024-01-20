@@ -69,7 +69,7 @@ static void	update_with_key_press(int input_key)
 {
 	t_shape	tmp_shape;
 
-	tmp_shape = allocate_block(current);
+	tmp_shape = duplicate_block(current);
 	if (input_key == MV_DOWN_KEY)
 	{
 		tmp_shape.row++;
@@ -109,7 +109,7 @@ static void	update_with_limit()
 {
 	t_shape	tmp_shape;
 
-	tmp_shape = allocate_block(current);
+	tmp_shape = duplicate_block(current);
 	tmp_shape.row++;
 	if(!is_reaching_bottom(tmp_shape))
 		current.row++;

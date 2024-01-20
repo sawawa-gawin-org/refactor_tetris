@@ -5,14 +5,14 @@ t_shape	create_random_block(const t_shape *tetriminos)
 {
 	t_shape	new_shape;
 
-	new_shape = allocate_block(tetriminos[rand() % 7]);
+	new_shape = duplicate_block(tetriminos[rand() % 7]);
 	new_shape.col = rand() % (WIDTH - new_shape.size + 1);
 	new_shape.row = 0;
 	return (new_shape);
 }
 
 //mallocで割り当てた2次元配列に引数のブロックを入れる関数
-t_shape	allocate_block(t_shape shape)
+t_shape	duplicate_block(t_shape shape)
 {
 	t_shape	new_shape;
 	int		i, j;

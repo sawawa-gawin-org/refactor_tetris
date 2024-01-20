@@ -6,7 +6,7 @@ void	rotate_block(t_shape shape)
 	t_shape	temp;
 	int 	i, j, k;
 
-	temp = allocate_block(shape);
+	temp = duplicate_block(shape);
 	i = 0;
 	while (i < shape.size)
 	{
