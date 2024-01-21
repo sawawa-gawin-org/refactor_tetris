@@ -4,7 +4,7 @@ char			Table[HEIGHT][WIDTH] = {};
 t_shape			current;
 
 int				g_score = 0;
-suseconds_t		g_timelimit = INITIAL_TIMELIMIT;
+time_t		g_timelimit = INITIAL_TIMELIMIT;
 int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
 int				GameOn = FALSE;
@@ -19,21 +19,31 @@ static const t_shape tetriminos[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4, 0, 0} // I mino
 };
 
+static void	run_tui(void);
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
 
 int	main(void)
 {
-	suseconds_t	pre_time, now_time;
 	size_t		kinds_minos;
-	int			input_key;
 
 	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]);
 	if (validate_screen_size(tetriminos, kinds_minos) == ERR)
 		exit(1);
 	destroy_block(current);
     srand(time(0));
-	/* TUIの開始 */
+	run_tui();
+	display_board(Table, printf);
+	printf("\nGame over!\n\nScore: %d\n", g_score);
+	return (0);
+}
+
+static void	run_tui(void)
+{
+	time_t	pre_time, now_time;
+	int			input_key;
+	int			game_on = FALSE;
+
     initscr();
 	timeout(1);
 	current = create_random_block(tetriminos);
@@ -41,10 +51,11 @@ int	main(void)
 	if(!is_reaching_bottom(current))
 	{
 		GameOn = TRUE;
-		display_screen();
+		game_on = TRUE;
+		display_game();
 	}
 	pre_time = gettime_as_us();
-	while(GameOn)
+	while(game_on)
 	{
 		if ((input_key = getch()) != ERR)
 		{
@@ -59,10 +70,6 @@ int	main(void)
 	}
 	destroy_block(current);
 	endwin();
-	/* TUIの終了 */
-	display_board(Table, printf);
-	printf("\nGame over!\n\nScore: %d\n", g_score);
-	return (0);
 }
 
 static void	update_with_key_press(int input_key)
@@ -102,7 +109,7 @@ static void	update_with_key_press(int input_key)
 			rotate_block(current);
 	}
 	destroy_block(tmp_shape);
-	display_screen();
+	display_game();
 }
 
 static void	update_with_limit()
@@ -122,5 +129,5 @@ static void	update_with_limit()
 		}
 	}
 	destroy_block(tmp_shape);
-	display_screen();
+	display_game();
 }

@@ -32,7 +32,7 @@ extern char				Table[HEIGHT][WIDTH];
 extern t_shape			current;
 
 extern int				g_score;
-extern suseconds_t		g_timelimit;
+extern time_t		g_timelimit;
 extern int				g_decrease;
 
 extern int				GameOn;
@@ -48,7 +48,7 @@ int			validate_screen_size(const t_shape *tetriminos, int kinds_minos);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));
-suseconds_t	gettime_as_us(void);
+time_t	gettime_as_us(void);
 int			sum_array(char *array, int size);
 
 #endif
