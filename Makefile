@@ -30,8 +30,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all debug clean fclean re
-
-# OBJ_DIR2 = ./obj2/ ./obj3/
-# RESULT = $(foreach dir, $(OBJ_DIR2), $(addprefix $(dir), $(SUB_OBJ_DIR)))
-# echo:
-# 	@echo $(RESULT)
