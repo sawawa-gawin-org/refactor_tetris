@@ -4,7 +4,7 @@ char			Table[HEIGHT][WIDTH] = {};
 t_shape			current;
 
 int				g_score = 0;
-time_t		g_timelimit = INITIAL_TIMELIMIT;
+time_t			g_timelimit = INITIAL_TIMELIMIT;
 int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
 int				GameOn = FALSE;
@@ -25,13 +25,13 @@ static void	update_with_limit();
 
 int	main(void)
 {
-	size_t		kinds_minos;
+	size_t		kinds_tetriminos;
 
-	kinds_minos = sizeof(tetriminos) / sizeof(tetriminos[0]);
-	if (validate_screen_size(tetriminos, kinds_minos) == ERR)
+	kinds_tetriminos = sizeof(tetriminos) / sizeof(tetriminos[0]);
+	if (validate_screen_size(tetriminos, kinds_tetriminos) == ERR)
 		exit(1);
 	destroy_block(current);
-    srand(time(0));
+	srand(time(0));
 	run_tui();
 	display_board(Table, printf);
 	printf("\nGame over!\n\nScore: %d\n", g_score);
@@ -40,11 +40,11 @@ int	main(void)
 
 static void	run_tui(void)
 {
-	time_t	pre_time, now_time;
+	time_t		pre_time, now_time;
 	int			input_key;
 	int			game_on = FALSE;
 
-    initscr();
+	initscr();
 	timeout(1);
 	current = create_random_block(tetriminos);
 	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
