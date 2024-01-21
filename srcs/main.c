@@ -6,7 +6,8 @@ int				g_score = 0;
 time_t			g_timelimit = INITIAL_TIMELIMIT;
 int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
-const t_shape tetriminos[7]= {
+int				game_on = TRUE;
+const t_shape	tetriminos[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3, 0, 0}, // S mino
 	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3, 0, 0}, // Z mino
 	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0}, // T mino
@@ -15,8 +16,6 @@ const t_shape tetriminos[7]= {
 	{(char *[]){(char []){1,1},(char []){1,1}}, 2, 0, 0}, // O mino
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4, 0, 0} // I mino
 };
-
-int		game_on = TRUE;
 
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
@@ -32,6 +31,7 @@ int	main(void)
 		exit(1);
 	destroy_block(g_current);
 	srand(time(0));
+	/* TUI START */
 	initscr();
 	timeout(1);
 	g_current = create_random_block(tetriminos);
@@ -51,6 +51,7 @@ int	main(void)
 	}
 	destroy_block(g_current);
 	endwin();
+	/* TUI END */
 	display_board(g_table, printf);
 	printf("\nGame over!\n\nScore: %d\n", g_score);
 	return (0);
