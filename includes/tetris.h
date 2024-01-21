@@ -42,9 +42,8 @@ t_shape		create_random_block(const t_shape *tetriminos);
 void		destroy_block(t_shape shape);
 int			is_reaching_bottom(t_shape shape);
 void		rotate_block(t_shape shape);
-void		display_screen(void);
+void		display_game(void);
 void		put_block_bottom(void);
-void		update_table(void);
 int			validate_screen_size(const t_shape *tetriminos, int kinds_minos);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));

@@ -3,7 +3,7 @@
 static void	get_block_overlay(char buffer[HEIGHT][WIDTH]);
 
 //ゲーム画面全体(タイトル、ボード、スコア)を描画する関数
-void	display_screen(void)
+void	display_game(void)
 {
 	char	buffer[HEIGHT][WIDTH];
 
