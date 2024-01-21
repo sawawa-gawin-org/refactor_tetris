@@ -2,29 +2,6 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "tetris-mandatory",
-			"command": "/usr/bin/gcc",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g3",
-				"-fsanitize=address",
-				"-I${workspaceFolder}/includes/",
-				"${workspaceFolder}/srcs/*.c",
-				"${workspaceFolder}/srcs/utils/*.c",
-				"${workspaceFolder}/srcs/cores/*.c",
-				"-lncurses",
-				"-o","${workspaceFolder}/tetris",
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-		},
-		{
-			"type": "cppbuild",
 			"label": "tetris-make",
 			"command": "make",
 			"args": [
@@ -34,6 +11,9 @@
 			"options": {
 				"cwd": "${fileDirname}"
 			},
+            "problemMatcher": [
+                "$gcc"
+            ],
 			"group": "build",
 		},
 	],

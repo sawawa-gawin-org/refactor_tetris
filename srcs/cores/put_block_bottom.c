@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-static void	erase_completed_line(int height, int sum);
+static void	erase_completed_line(int height);
 
 //行が揃った時、消去して1段下げ、スコアを加算する関数
 void put_block_bottom(void)
@@ -14,7 +14,7 @@ void put_block_bottom(void)
 		sum = sum_array((char *) Table[height], WIDTH);
 		if (sum == WIDTH)
 		{
-			erase_completed_line(height, sum);
+			erase_completed_line(height);
 		}
 		height++;
 	}
@@ -40,7 +40,7 @@ void	update_table(void)
 	}
 }
 
-static void	erase_completed_line(int height, int sum)
+static void	erase_completed_line(int height)
 {
 	int	width;
 

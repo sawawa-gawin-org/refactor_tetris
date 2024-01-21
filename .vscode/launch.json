@@ -5,7 +5,7 @@
 			"name": "Mandatory-linux",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${cwd}/tetris",
+			"program": "${cwd}/tetris_debug",
 			"args": [
 			],
 			"stopAtEntry": false,
@@ -19,7 +19,7 @@
 			"name": "Mandatory-macOS",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${cwd}/tetris",
+			"program": "${cwd}/tetris_debug",
 			"args": [
 			],
 			"stopAtEntry": false,
@@ -27,7 +27,7 @@
 			"environment": [],
 			"externalConsole": true,
 			"MIMode": "lldb",
-			"preLaunchTask": "tetris-mandatory",
+			"preLaunchTask": "tetris-make",
 		}
 	]
 }
