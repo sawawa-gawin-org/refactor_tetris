@@ -32,7 +32,7 @@ extern char				g_table[HEIGHT][WIDTH];
 extern t_shape			g_current;
 
 extern int				g_score;
-extern time_t		g_timelimit;
+extern time_t			g_timelimit;
 extern int				g_decrease;
 
 t_shape		duplicate_block(t_shape shape);
