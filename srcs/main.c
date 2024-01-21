@@ -6,7 +6,7 @@ int				g_score = 0;
 time_t			g_timelimit = INITIAL_TIMELIMIT;
 int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 
-static const t_shape tetriminos[7]= {
+const t_shape tetriminos[7]= {
 	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3, 0, 0}, // S mino
 	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3, 0, 0}, // Z mino
 	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0}, // T mino
@@ -16,7 +16,7 @@ static const t_shape tetriminos[7]= {
 	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4, 0, 0} // I mino
 };
 
-static int		game_on = FALSE;
+int		game_on = TRUE;
 
 static void	update_with_key_press(int input_key);
 static void	update_with_limit();
@@ -35,12 +35,6 @@ int	main(void)
 	initscr();
 	timeout(1);
 	g_current = create_random_block(tetriminos);
-	/* ゲーム画面高さが1の時なのためにループに入る前に高さ判定を行っている、 */
-	if(!is_reaching_bottom(g_current))
-	{
-		game_on = TRUE;
-		display_game();
-	}
 	pre_time = gettime_as_us();
 	while(game_on)
 	{
