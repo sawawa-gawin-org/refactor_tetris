@@ -28,14 +28,12 @@ enum	e_interface
 	MV_RIGHT_KEY = 'd',
 };
 
-extern char				Table[HEIGHT][WIDTH];
-extern t_shape			current;
+extern char				g_table[HEIGHT][WIDTH];
+extern t_shape			g_current;
 
 extern int				g_score;
 extern time_t		g_timelimit;
 extern int				g_decrease;
-
-extern int				GameOn;
 
 t_shape		duplicate_block(t_shape shape);
 t_shape		create_random_block(const t_shape *tetriminos);

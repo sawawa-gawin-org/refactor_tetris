@@ -18,7 +18,7 @@ int	is_reaching_bottom(t_shape shape)
 				if(array[i][j])
 					return (TRUE);
 			}
-			else if (Table[shape.row + i][shape.col + j] && array[i][j])
+			else if (g_table[shape.row + i][shape.col + j] && array[i][j])
 				return (TRUE);
 			j++;
 		}
