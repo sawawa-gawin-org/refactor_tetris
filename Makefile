@@ -13,7 +13,7 @@ $(OBJ_DIR):
 	mkdir -p $(addprefix $(OBJ_DIR), $(SUB_OBJ_DIR))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
-	$(CC) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)

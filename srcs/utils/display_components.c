@@ -28,5 +28,5 @@ void	display_title(char *title, int (*print_callback)(const char *fmt, ...))
 		print_callback(" ");
 		i++;
 	}
-	print_callback("42 Tetris\n");
+	print_callback(title);
 }

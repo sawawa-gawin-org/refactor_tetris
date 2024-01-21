@@ -12,6 +12,7 @@ SRCS := main.c \
 		cores/display_screen.c cores/put_block_bottom.c cores/rotate_block.c \
 		cores/validate_screen_size.c \
 		utils/display_components.c utils/gettime_as_us.c utils/sum.c
+
 SRCS := $(addprefix $(SRC_DIR), $(SRCS)) 
 
 TMP_DIR = ./obj/
@@ -23,7 +24,7 @@ OBJS = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 DOBJS = $(patsubst $(SRC_DIR)%.c,$(DOBJ_DIR)%.o,$(SRCS))
 
 CC = gcc
-CFLAGS = -Wall -Wexta -Werror
+CFLAGS = -Wall -Wextra -Werror
 LFLAGS = -lncurses
 DFLAGS = -fdiagnostics-color=always -g3 -fsanitize=address
 IFLAGS = -I$(HEADER_DIR)

@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-char			Table[HEIGHT][WIDTH] = {0};
+char			Table[HEIGHT][WIDTH] = {};
 t_shape			current;
 
 int				g_score = 0;
@@ -10,13 +10,13 @@ int				g_decrease = INITIAL_TIMELIMIT_DECREASE;
 int				GameOn = FALSE;
 
 static const t_shape tetriminos[7]= {
-	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3}, // S mino
-	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3}, // Z mino
-	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3}, // T mino
-	{(char *[]){(char []){0,0,1},(char []){1,1,1}, (char []){0,0,0}}, 3}, // L mino
-	{(char *[]){(char []){1,0,0},(char []){1,1,1}, (char []){0,0,0}}, 3}, // J mino
-	{(char *[]){(char []){1,1},(char []){1,1}}, 2}, // O mino
-	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4} // I mino
+	{(char *[]){(char []){0,1,1},(char []){1,1,0}, (char []){0,0,0}}, 3, 0, 0}, // S mino
+	{(char *[]){(char []){1,1,0},(char []){0,1,1}, (char []){0,0,0}}, 3, 0, 0}, // Z mino
+	{(char *[]){(char []){0,1,0},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0}, // T mino
+	{(char *[]){(char []){0,0,1},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0}, // L mino
+	{(char *[]){(char []){1,0,0},(char []){1,1,1}, (char []){0,0,0}}, 3, 0, 0}, // J mino
+	{(char *[]){(char []){1,1},(char []){1,1}}, 2, 0, 0}, // O mino
+	{(char *[]){(char []){0,0,0,0}, (char []){1,1,1,1}, (char []){0,0,0,0}, (char []){0,0,0,0}}, 4, 0, 0} // I mino
 };
 
 static void	update_with_key_press(int input_key);
