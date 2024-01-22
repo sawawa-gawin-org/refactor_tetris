@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-char			g_table[HEIGHT][WIDTH] = {};
+char			g_table[HEIGHT][WIDTH] = {{0}};
 t_shape			g_current;
 int				g_score = 0;
 time_t			g_timelimit = INITIAL_TIMELIMIT;
