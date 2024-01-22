@@ -1,5 +1,6 @@
 #include "tetris.h"
 
+static void	update_table(void);
 static void	erase_completed_line(int height);
 
 //行が揃った時、消去して1段下げ、スコアを加算する関数
@@ -11,7 +12,7 @@ void put_block_bottom(void)
 	height = 0;
 	while (height < HEIGHT)
 	{
-		sum = sum_array((char *) Table[height], WIDTH);
+		sum = sum_array((char *) g_table[height], WIDTH);
 		if (sum == WIDTH)
 		{
 			erase_completed_line(height);
@@ -20,19 +21,19 @@ void put_block_bottom(void)
 	}
 }
 
-void	update_table(void)
+static void	update_table(void)
 {
 	int i, j;
 
 	i = 0;
-	while (i < current.size)
+	while (i < g_current.size)
 	{
 		j = 0;
-		while (j < current.size)
+		while (j < g_current.size)
 		{
-			if(current.array[i][j])
+			if(g_current.array[i][j])
 			{
-				Table[current.row + i][current.col + j] = current.array[i][j];
+				g_table[g_current.row + i][g_current.col + j] = g_current.array[i][j];
 			}
 			j++;
 		}
@@ -44,13 +45,13 @@ static void	erase_completed_line(int height)
 {
 	int	width;
 
-	g_score += 100;
+	g_score += SCORE_INCREMENT_RATE;
 	while (height > 0)
 	{
 		width = 0;
 		while (width < WIDTH)
 		{
-			Table[height][width] = Table[height - 1][width];
+			g_table[height][width] = g_table[height - 1][width];
 			width++;
 		}
 		height--;
@@ -58,7 +59,7 @@ static void	erase_completed_line(int height)
 	width = 0;
 	while (width < WIDTH)
 	{
-		Table[height][width] = 0;
+		g_table[height][width] = 0;
 		width++;
 	}
 	g_decrease = g_decrease > 0 ? g_decrease - 1 : 0; 

@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-//最上部もしくは底辺に達した時にTRUE、達しておらずゲーム続行可能であればFALSE
+//何かしらに接地した場合TRUE、中空に存在&&ゲーム続行可能ならばFALSE
 int	is_reaching_bottom(t_shape shape)
 {
 	char	**array;
@@ -18,7 +18,7 @@ int	is_reaching_bottom(t_shape shape)
 				if(array[i][j])
 					return (TRUE);
 			}
-			else if (Table[shape.row + i][shape.col + j] && array[i][j])
+			else if (g_table[shape.row + i][shape.col + j] && array[i][j])
 				return (TRUE);
 			j++;
 		}

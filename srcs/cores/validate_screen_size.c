@@ -7,7 +7,7 @@ int	validate_screen_size(const t_shape *tetriminos, int kinds_minos)
 	int		max_size;
 
 	if (tetriminos == NULL)
-		return (0);
+		return (ERR);
 	max_size = get_mino_max_size((t_shape *) tetriminos, kinds_minos);
 	if (max_size > WIDTH || max_size > HEIGHT)
 	{
