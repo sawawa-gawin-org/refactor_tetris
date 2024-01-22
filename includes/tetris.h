@@ -4,6 +4,7 @@
 # define WIDTH 15
 # define INITIAL_TIMELIMIT 400000
 # define INITIAL_TIMELIMIT_DECREASE 893 // 1/2*893*(893+1) < 400000
+# define SCORE_INCREMENT_RATE 100
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -46,7 +47,7 @@ int			validate_screen_size(const t_shape *tetriminos, int kinds_minos);
 
 void		display_board(char array[HEIGHT][WIDTH], int (*print_callback)(const char *fmt, ...));
 void		display_title(char *title, int (*print_callback)(const char *fmt, ...));
-time_t	gettime_as_us(void);
+time_t		gettime_as_us(void);
 int			sum_array(char *array, int size);
 
 #endif

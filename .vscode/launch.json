@@ -26,6 +26,7 @@
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": true,
+			"targetArchitecture": "x86_64",
 			"MIMode": "lldb",
 			"preLaunchTask": "tetris-make",
 		}

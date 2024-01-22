@@ -45,7 +45,7 @@ static void	erase_completed_line(int height)
 {
 	int	width;
 
-	g_score += 100;
+	g_score += SCORE_INCREMENT_RATE;
 	while (height > 0)
 	{
 		width = 0;

@@ -67,7 +67,8 @@ static void	update_with_key_press(int input_key)
 		tmp_shape.row++;
 		if (!is_reaching_bottom(tmp_shape))
 			g_current.row++;
-		else {
+		else
+		{
 			put_block_bottom();
 			destroy_block(g_current);
 			g_current = create_random_block(tetriminos);
@@ -105,13 +106,13 @@ static void	update_with_limit()
 	tmp_shape.row++;
 	if(!is_reaching_bottom(tmp_shape))
 		g_current.row++;
-	else {
+	else
+	{
 		put_block_bottom();
 		destroy_block(g_current);
 		g_current = create_random_block(tetriminos);
-		if(is_reaching_bottom(g_current)){
+		if(is_reaching_bottom(g_current))
 			game_on = FALSE;
-		}
 	}
 	destroy_block(tmp_shape);
 	display_game();
